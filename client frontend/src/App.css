@@ -652,3 +652,65 @@ textarea:focus {
   background-color: black;
   border: 1px solid black;
 }
+ /* Chat Icon and Chat Window Styles */
+.chat-container {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  z-index: 1000;
+}
+
+.chat-button {
+  .chat-button {
+    position: fixed;
+    right: 20px;
+    bottom: 20px;
+    z-index: 1000;
+}
+
+}
+
+.chat-box {
+  width: 300px;
+  background-color: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  border-radius: 8px;
+  display: none;  /* Initially hidden */
+  flex-direction: column;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.messages {
+  height: 200px;
+  overflow-y: auto;
+  margin-bottom: 10px;
+}
+
+.message {
+  padding: 5px;
+  margin: 5px;
+  border-radius: 8px;
+  background-color: #f1f1f1;  /* Light grey background for messages */
+  color: black;  /* Black text color */
+}
+
+.input-container {
+  display: flex;
+}
+
+input[type="text"] {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+}
+
+button.send-button {
+  padding: 10px 15px;
+  background-color: #c6c7c9;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+}
