@@ -13,8 +13,12 @@ import ProfileScreen from "./screens/ProfileScreen";
 import PaymentScreen from "./screens/PaymentScreen";
 import PlaceOrderScreen from "./screens/PlaceOrderScreen";
 import OrderScreen from "./screens/OrderScreen";
+//import SellNowPage from "./screens/SellNowPage";
 import NotFound from "./screens/NotFound";
+import AddProduct from "./screens/AddProduct";
+import ProductScreen from "./screens/productScreen";
 import PrivateRouter from "./PrivateRouter";
+
 
 const App = () => {
   return (
@@ -31,11 +35,15 @@ const App = () => {
         <Route path="/products/:id" component={SingleProduct} />
         <Route path="/login" component={Login} />
         <Route path="/register" component={Register} />
+        
         <PrivateRouter path="/profile" component={ProfileScreen} />
+        <PrivateRouter path="/products" component={ProductScreen} />
         <Route path="/cart/:id?" component={CartScreen} />
         <PrivateRouter path="/shipping" component={ShippingScreen} />
         <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
+       <PrivateRouter path="/addproduct" component={AddProduct} />
+
         <PrivateRouter path="/order/:id" component={OrderScreen} />
         <Route path="*" component={NotFound} />
       </Switch>
@@ -44,3 +52,4 @@ const App = () => {
 };
 
 export default App;
+

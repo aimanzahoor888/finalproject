@@ -226,9 +226,23 @@ input[type="text"] {
 button {
   padding: 10px 15px;
   background-color: #ffffff;
-  color: white;
+  
   border: none;
   border-radius: 8px;
   cursor: pointer;
 }
 
+.content-header {
+  flex-direction: column;
+  align-items: flex-start;
+  margin-bottom: 1rem;
+}
+.content-header .content-title {
+  margin-bottom: 1rem;
+}
+.card-header input.form-control {
+  margin-bottom: 1rem;
+}
+.order-info-wrap .icontext {
+  margin-bottom: 1rem;
+}

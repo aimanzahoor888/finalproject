@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link, useHistory } from "react-router-dom";
+import { Link,NavLink, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/Actions/userActions";
 
@@ -68,6 +68,14 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
+                <Link
+                activeClassName="active"
+                className="menu-link"
+                to="/addproduct"
+              >
+                
+                <span className="text">Add product</span>
+              </Link>
                   {userInfo ? (
                     <div className="btn-group">
                       <button
@@ -160,6 +168,14 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
+              <Link
+                activeClassName="active"
+                className="menu-link"
+                to="/addproduct"
+              >
+                
+                <span className="text">Add product</span>
+              </Link>
                 {userInfo ? (
                   <div className="btn-group">
                     <button

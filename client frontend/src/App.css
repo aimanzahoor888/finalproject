@@ -714,3 +714,112 @@ button.send-button {
   border-radius: 8px;
   cursor: pointer;
 }
+
+.content-main {
+  padding: 30px 3%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.content-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 30px;
+}
+.content-header .content-title {
+  margin-bottom: 0;
+}
+
+.card-user .card-body {
+  text-align: center;
+}
+
+.form-control:hover,
+.form-select:hover {
+  border-color: #4fa607;
+}
+
+body.aside-mini .menu-aside .menu-link {
+  text-align: center;
+}
+body.aside-mini .menu-aside .menu-link .text {
+  display: none;
+}
+body.aside-mini .menu-aside .menu-link .icon {
+  margin-right: 0;
+}
+
+body.aside-mini .menu-aside .menu-item.has-submenu .menu-link:after {
+  display: none;
+}
+
+.menu-aside .menu-link {
+  padding: 10px;
+  color: #29335d;
+  font-weight: bold;
+  border-radius: 0.3rem;
+  position: relative;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.menu-aside .menu-link .text {
+  vertical-align: middle;
+}
+.menu-aside .menu-link:hover {
+  transition: 0.2s linear;
+  background-color: #e9ecef;
+}
+
+.menu-aside .menu-item.has-submenu > .menu-link:after {
+  display: inline-block;
+  float: right;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  margin-top: 0.6em;
+  vertical-align: middle;
+  content: "";
+  border-top: 5px solid #adb5bd;
+  border-right: 5px solid transparent;
+  border-bottom: 0;
+  border-left: 5px solid transparent;
+}
+
+/* -------------------- list.row--------------------- */
+ul.row,
+ul.row-sm {
+  list-style: none;
+  padding: 0;
+}
+[class*="card-product"] .img-wrap {
+  text-align: center;
+  display: block;
+  overflow: hidden;
+  position: relative;
+  background: white;
+}
+[class*="card-product"] .img-wrap img {
+  height: 100%;
+  max-width: 100%;
+  width: auto;
+  display: inline-block;
+  object-fit: cover;
+}
+
+.card-product-grid .img-wrap {
+  border-radius: 0.2rem 0.2rem 0 0;
+  height: 220px;
+}
+
+.card-product-list .img-wrap {
+  height: 220px;
+  border-radius: 0.25rem 0 0 0.25rem;
+}
+
+.card-product-grid .info-wrap {
+  padding: 1rem;
+}
+
+

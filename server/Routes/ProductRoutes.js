@@ -1,7 +1,7 @@
 import express from "express";
 import asyncHandler from "express-async-handler";
 import Product from "./../Models/ProductModel.js";
-import { admin, protect } from "./../Middleware/AuthMiddleware.js";
+import { protect } from "./../Middleware/AuthMiddleware.js";
 
 const productRoute = express.Router();
 
@@ -32,7 +32,7 @@ productRoute.get(
 productRoute.get(
   "/all",
   protect,
-  admin,
+  //admin,
   asyncHandler(async (req, res) => {
     const products = await Product.find({}).sort({ _id: -1 });
     res.json(products);
@@ -95,7 +95,7 @@ productRoute.post(
 productRoute.delete(
   "/:id",
   protect,
-  admin,
+ // admin,
   asyncHandler(async (req, res) => {
     const product = await Product.findById(req.params.id);
     if (product) {
@@ -112,7 +112,7 @@ productRoute.delete(
 productRoute.post(
   "/",
   protect,
-  admin,
+ // admin,
   asyncHandler(async (req, res) => {
     const { name, price, description, image, countInStock } = req.body;
     const productExist = await Product.findOne({ name });
@@ -143,7 +143,7 @@ productRoute.post(
 productRoute.put(
   "/:id",
   protect,
-  admin,
+ // admin,
   asyncHandler(async (req, res) => {
     const { name, price, description, image, countInStock } = req.body;
     const product = await Product.findById(req.params.id);
