@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const ContactInfo = () => {
   return (
@@ -9,26 +10,31 @@ const ContactInfo = () => {
             <div className="info-image">
               <i className="fas fa-phone-alt"></i>
             </div>
-            <h5>Call Us 24x7</h5>
-            <p>0736 230 063</p>
+            <h5>Contact Us</h5>
+            <p>help@thriftn.com</p> 
+            <p>+92 313 640</p>
           </div>
         </div>
         <div className="col-12 col-md-4 contact-Box">
           <div className="box-info">
             <div className="info-image">
-              <i className="fas fa-map-marker-alt"></i>
+              <i className="fas fa-info-circle"></i> {/* Icon updated to represent "About Us" */}
             </div>
-            <h5>Headquarter</h5>
-            <p>Arusha Njiro Pepsi</p>
+            <Link to="/about-us" className="about-us-link">
+              <h5>About Us</h5>
+              <p>Learn more about us</p>
+            </Link>
           </div>
         </div>
         <div className="col-12 col-md-4 contact-Box">
           <div className="box-info">
             <div className="info-image">
-              <i className="fas fa-fax"></i>
+              <i className="fas fa-file-alt"></i> {/* Icon updated to represent "Policy" */}
             </div>
-            <h5>Fax</h5>
-            <p>0736 230 063</p>
+            <Link to="/policy" className="policy-link">
+              <h5>Policy</h5>
+              <p>Our policies</p>
+            </Link>
           </div>
         </div>
       </div>

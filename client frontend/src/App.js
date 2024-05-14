@@ -18,6 +18,10 @@ import NotFound from "./screens/NotFound";
 import AddProduct from "./screens/AddProduct";
 import ProductScreen from "./screens/productScreen";
 import PrivateRouter from "./PrivateRouter";
+import AboutUs from "./screens/AboutUs";
+import Policy from "./screens/Policy";
+
+
 
 
 const App = () => {
@@ -43,6 +47,8 @@ const App = () => {
         <PrivateRouter path="/payment" component={PaymentScreen} />
         <PrivateRouter path="/placeorder" component={PlaceOrderScreen} />
        <PrivateRouter path="/addproduct" component={AddProduct} />
+       <Route path="/about-us" component={AboutUs} />
+       <Route path="/policy" component={Policy} />
 
         <PrivateRouter path="/order/:id" component={OrderScreen} />
         <Route path="*" component={NotFound} />
