@@ -20,6 +20,8 @@ import ProductScreen from "./screens/productScreen";
 import PrivateRouter from "./PrivateRouter";
 import AboutUs from "./screens/AboutUs";
 import Policy from "./screens/Policy";
+import Donate from "./screens/Donate";
+
 
 
 
@@ -49,7 +51,7 @@ const App = () => {
        <PrivateRouter path="/addproduct" component={AddProduct} />
        <Route path="/about-us" component={AboutUs} />
        <Route path="/policy" component={Policy} />
-
+       <Route path="/donate" component={Donate} />
         <PrivateRouter path="/order/:id" component={OrderScreen} />
         <Route path="*" component={NotFound} />
       </Switch>

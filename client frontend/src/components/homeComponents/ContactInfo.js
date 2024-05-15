@@ -8,11 +8,12 @@ const ContactInfo = () => {
         <div className="col-12 col-md-4 contact-Box">
           <div className="box-info">
             <div className="info-image">
-              <i className="fas fa-phone-alt"></i>
+              <i className="fas fa-hands-helping"></i> {/* Updated icon for "Donate" */}
             </div>
-            <h5>Contact Us</h5>
-            <p>help@thriftn.com</p> 
-            <p>+92 313 640</p>
+            <Link to="/donate" className="donate-link">
+              <h5>Donate</h5>
+              <p>Do Good, Be Good</p>
+            </Link>
           </div>
         </div>
         <div className="col-12 col-md-4 contact-Box">
@@ -22,7 +23,7 @@ const ContactInfo = () => {
             </div>
             <Link to="/about-us" className="about-us-link">
               <h5>About Us</h5>
-              <p>Learn more about us</p>
+              <p>Learn more Thriftn'</p>
             </Link>
           </div>
         </div>
@@ -33,7 +34,7 @@ const ContactInfo = () => {
             </div>
             <Link to="/policy" className="policy-link">
               <h5>Policy</h5>
-              <p>Our policies</p>
+              <p>Our Privacy Policy</p>
             </Link>
           </div>
         </div>

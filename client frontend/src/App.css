@@ -196,13 +196,14 @@ textarea:focus {
 }
 /* END OF SHOP */
 
-/* NEWSLATTER */
+/* NEWSLETTER */
 .subscribe-section {
   background: linear-gradient(0deg, rgba(0, 0, 0, 0.226), rgba(0, 0, 0, 0.226)),
-    url("https://sasshoes-com.s3.us-west-2.amazonaws.com/img/banner-uplift-21.jpg")
+    url("https://thriftcityllc.com/wp-content/uploads/2023/03/crs_recycle_image.webp")
       no-repeat scroll center / cover;
   padding: 100px 0 100px;
 }
+
 .subscribe-head h2 {
   color: #fff;
   font-size: 30px;
@@ -211,26 +212,24 @@ textarea:focus {
   margin: 0 0 13px;
   text-transform: uppercase;
 }
+
 .subscribe-head p {
   color: #fff;
   font-size: 18px;
   line-height: 22px;
   margin: 0 0 39px;
 }
+
 .subscribe-head {
   text-align: center;
 }
-.form-section input[type="email"] {
-  border: 0 none;
-  border-radius: 25px;
-  color: #9b9b9b;
-  font-size: 16px;
-  font-style: normal;
-  height: 51px;
-  letter-spacing: 0;
-  text-align: center;
-  width: 460px;
+
+.form-section {
+  display: flex;
+  justify-content: center;
+  gap: 20px; /* Space between buttons */
 }
+
 .form-section input[type="submit"] {
   background: #1cb803;
   border: 0 none;
@@ -238,11 +237,13 @@ textarea:focus {
   color: #fff;
   height: 52px;
   letter-spacing: 0;
-  margin-left: -60px;
-  padding: 0 58px;
+  padding: 0 30px;
   text-transform: uppercase;
   font-size: 12px;
+  cursor: pointer;
 }
+
+
 /* CONTACT */
 .contactInfo {
   padding: 70px 0;
@@ -570,8 +571,22 @@ textarea:focus {
 }
 /* FOOTER */
 .footer {
-  background-color: #ececec;
+  background-color: #ffffff;
+  padding: 10px 0;
+  font-family: "Josefin Sans", sans-serif;;
+  color: #333;
 }
+.footer .container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.footer p {
+  margin: 0;
+  font-size: 14px;
+}
+
 .card-name {
   width: 4%;
   margin: 10px;
@@ -829,40 +844,51 @@ ul.row-sm {
   text-decoration: none; /* Removes underline from the link */
 }
 
-.about-us-link:hover {
-  text-decoration: underline; /* Adds underline on hover for better UX */
-}
-
 .about-us-link, .policy-link {
   color: inherit;
   text-decoration: none;
 }
 
-.about-us-link:hover, .policy-link:hover {
-  text-decoration: underline;
-}
 
 /*ABOUT US AND POLICY PAGE */
 
 .content {
-  padding: 20px;
-  font-family: "Josefin Sans", sans-serif;;
+    padding: 20px;
+    font-family: "Josefin Sans", sans-serif;;
 }
 
-.content h1, .content h2, .content p, .content ul {
-  margin-bottom: 20px;
+.content h1, .content h2, .content p, .content ol {
+    margin-bottom: 20px;
 }
 
-.content ul {
-  list-style-type: disc;
-  padding-left: 20px;
+.content ol {
+    list-style-type: decimal;
+    padding-left: 20px;
 }
 
 .content a {
-  color: #007bff;
-  text-decoration: none;
+    color: #000000;
+    text-decoration: none;
 }
 
 .content a:hover {
-  text-decoration: underline;
+    text-decoration: underline;
+    color: #29335d;
+}
+
+.hold-logo {
+  width: 80%;
+  height: auto;
+  max-height: 100px; /* Adjust the height as necessary */
+  object-fit: cover;
+  margin-bottom: 20px;
+}
+/* Specific styles for Donate page links */
+.content a {
+  color: #007bff; /* Blue color for links */
+  text-decoration: none; /* No underline */
+}
+
+.content a:hover {
+  text-decoration: underline; /* Underline on hover */
 }

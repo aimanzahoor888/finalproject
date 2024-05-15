@@ -7,7 +7,7 @@ const AboutUs = () => {
         <>
             <Header />
             <div className="content">
-                <h1>Welcome to Thriftn' — Where Values Meet Value</h1>
+                <h2>Welcome to Thriftn' — Where Values Meet Value</h2>
                 <h2>Our Mission</h2>
                 <p>Thriftn' isn't just a marketplace; it's a movement. Born in the bustling heart of Pakistan, our mission is to empower economic resilience and environmental responsibility through the reuse of items. In a world where both wallets and waste bins are overflowing, we offer a sustainable solution that helps our community save money and the planet.</p>
                 <h2>Our Vision</h2>
