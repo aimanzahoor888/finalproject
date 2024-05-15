@@ -23,7 +23,7 @@ const ContactInfo = () => {
             </div>
             <Link to="/about-us" className="about-us-link">
               <h5>About Us</h5>
-              <p>Learn more Thriftn'</p>
+              <p>Learn more about Thriftn'</p>
             </Link>
           </div>
         </div>
