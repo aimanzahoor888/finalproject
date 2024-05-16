@@ -26,7 +26,7 @@ const Orders = (props) => {
               <b>{order.user.name}</b>
             </td>
             <td>{order.user.email}</td>
-            <td>${order.totalPrice}</td>
+            <td>Rs.{order.totalPrice}</td>
             <td>
               {order.isPaid ? (
                 <span className="badge rounded-pill alert-success">

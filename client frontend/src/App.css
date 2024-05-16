@@ -877,12 +877,28 @@ ul.row-sm {
 }
 
 .hold-logo {
-  width: 80%;
+  width: 100%;
   height: auto;
-  max-height: 100px; /* Adjust the height as necessary */
-  object-fit: cover;
+  max-height: 200px; /* Adjust the height as necessary */
+  object-fit: contain;
   margin-bottom: 20px;
 }
+.policy-logo {
+  width: 100%;
+  height: auto;
+  max-height: 170px; /* Adjust the height as necessary */
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+.aboutus-logo {
+  width: 100%;
+  height: auto;
+  max-height: 170px; /* Adjust the height as necessary */
+  object-fit: contain;
+  margin-bottom: 20px;
+}
+
+
 /* Specific styles for Donate page links */
 .content a {
   color: #007bff; /* Blue color for links */

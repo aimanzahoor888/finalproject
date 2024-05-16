@@ -136,7 +136,7 @@ const PlaceOrderScreen = ({ history }) => {
                     </div>
                     <div className="mt-3 mt-md-0 col-md-2 col-6 align-items-end  d-flex flex-column justify-content-center ">
                       <h4>SUBTOTAL</h4>
-                      <h6>${item.qty * item.price}</h6>
+                      <h6>Rs.{item.qty * item.price}</h6>
                     </div>
                   </div>
                 ))}
@@ -151,25 +151,25 @@ const PlaceOrderScreen = ({ history }) => {
                   <td>
                     <strong>Products</strong>
                   </td>
-                  <td>${cart.itemsPrice}</td>
+                  <td>Rs.{cart.itemsPrice}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Shipping</strong>
                   </td>
-                  <td>${cart.shippingPrice}</td>
+                  <td>Rs.{cart.shippingPrice}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Tax</strong>
                   </td>
-                  <td>${cart.taxPrice}</td>
+                  <td>Rs.{cart.taxPrice}</td>
                 </tr>
                 <tr>
                   <td>
                     <strong>Total</strong>
                   </td>
-                  <td>${cart.totalPrice}</td>
+                  <td>Rs.{cart.totalPrice}</td>
                 </tr>
               </tbody>
             </table>

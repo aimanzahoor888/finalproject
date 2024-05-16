@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 
 const CalltoActionSection = () => {
   return (
@@ -10,8 +11,12 @@ const CalltoActionSection = () => {
               <h2>Thrift your way to a greener future.</h2>
               <div className="form-section">
                 <input value="BUY" name="buy" type="submit" />
-                <input value="SELL" name="sell" type="submit" />
-                <input value="DONATE" name="donate" type="submit" />
+                <Link to="/addproduct">
+                  <input value="SELL" name="sell" type="submit" />
+                </Link>
+                <Link to="/donate">
+                  <input value="DONATE" name="donate" type="submit" />
+                </Link>
               </div>
             </div>
           </div>
