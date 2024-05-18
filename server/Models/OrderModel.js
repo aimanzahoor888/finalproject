@@ -18,6 +18,7 @@ const orderSchema = mongoose.Schema(
           required: true,
           ref: "Product",
         },
+        isReviewed: { type: Boolean, default: false }, // Track if the item has been reviewed
       },
     ],
     shippingAddress: {

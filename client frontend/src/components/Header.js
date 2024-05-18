@@ -62,14 +62,9 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
-                <Link
-                activeClassName="active"
-                className="menu-link"
-                to="/addproduct"
-              >
-                
-                <span className="text">Sell Now</span>
-              </Link>
+                <Link to="/addproduct">
+                  <input value="SELL" name="sell" type="submit" />
+                </Link>
                   {userInfo ? (
                     <div className="btn-group">
                       <button
@@ -162,13 +157,9 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-              <Link
-                activeClassName="active"
-                className="menu-link"
-                to="/addproduct"
-              > 
-                <span className="text">Sell Now</span>
-              </Link>
+              <Link to="/addproduct">
+                  <input value="SELL" name="sell" type="submit" />
+                </Link>
                 {userInfo ? (
                   <div className="btn-group">
                     <button

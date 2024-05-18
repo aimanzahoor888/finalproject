@@ -217,19 +217,14 @@ const OrderScreen = ({ match }) => {
                     </tr>
                   </tbody>
                 </table>
-                {!order.isPaid && (
-                  <div className="col-12">
-                    {loadingPay && <Loading />}
-                    {!sdkReady ? (
-                      <Loading />
-                    ) : (
-                      <PayPalButton
-                        amount={order.totalPrice}
-                        onSuccess={successPaymentHandler}
-                      />
-                    )}
-                  </div>
-                )}
+                
+              <div className="bg-info p-2 col-12">
+                        <p className="text-white text-center text-sm-start">
+                        <Link to="/" className="col-md-6 ">
+                Continue To Shopping
+              </Link>
+                        </p>
+                      </div>
               </div>
             </div>
           </>

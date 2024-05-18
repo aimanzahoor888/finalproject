@@ -12,6 +12,9 @@ import {
   PRODUCT_CREATE_FAIL,
   PRODUCT_CREATE_REQUEST,
   PRODUCT_CREATE_SUCCESS,
+  SELLER_REVIEWS_REQUEST,
+  SELLER_REVIEWS_SUCCESS,
+  SELLER_REVIEWS_FAIL,
   
 } from "../Constants/ProductConstants";
 import { logout } from "./userActions";
@@ -88,9 +91,28 @@ export const createProductReview =
       });
     }
   };
+
+// FETCH SELLER REVIEWS
+// Actions (ProductActions.js)
+export const listSellerReviews = (sellerId) => async (dispatch) => {
+  try {
+    dispatch({ type: SELLER_REVIEWS_REQUEST });
+    const { data } = await axios.get(`${URL}/api/products/seller/${sellerId}/reviews`);
+    dispatch({ type: SELLER_REVIEWS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: SELLER_REVIEWS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
+
 // CREATE PRODUCT
 export const createProduct =
-(name, price, description, image, countInStock) =>
+(name, price, description, image, countInStock, category, type, size, color, author, publicationYear, pageCount, quality) =>
 async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_CREATE_REQUEST });
@@ -107,7 +129,7 @@ async (dispatch, getState) => {
 
     const { data } = await axios.post(
       `${URL}/api/products/`,
-      { name, price, description, image, countInStock },
+      { name, price, description, image, countInStock, category, type, size, color, author, publicationYear, pageCount, quality },
       config
     );
 

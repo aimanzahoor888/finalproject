@@ -1,9 +1,30 @@
-import express from "express";
+import path from 'path';
+import { fileURLToPath } from 'url';
+import fs from 'fs';
+import express from 'express';
+import multer from 'multer';
+import Product from "../Models/ProductModel.js";
+import { protect } from "../Middleware/AuthMiddleware.js";
 import asyncHandler from "express-async-handler";
-import Product from "./../Models/ProductModel.js";
-import { protect } from "./../Middleware/AuthMiddleware.js";
+import Order from "./../Models/OrderModel.js";
+import { checkAndAssignTrustedBadge } from "../utils/Utils.js";
 
 const productRoute = express.Router();
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
+// Configure multer for file uploads
+const uploadsDir = path.join(__dirname, '..', 'uploads');
+if (!fs.existsSync(uploadsDir)) {
+  fs.mkdirSync(uploadsDir, { recursive: true });
+}
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => cb(null, uploadsDir),
+  filename: (req, file, cb) => cb(null, `${file.fieldname}-${Date.now()}${path.extname(file.originalname)}`)
+});
+
+const upload = multer({ storage });
 
 // GET ALL PRODUCT
 productRoute.get(
@@ -43,7 +64,7 @@ productRoute.get(
 productRoute.get(
   "/:id",
   asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('user', 'name email');
     if (product) {
       res.json(product);
     } else {
@@ -53,22 +74,26 @@ productRoute.get(
   })
 );
 
+
 // PRODUCT REVIEW
 productRoute.post(
-  "/:id/review",
+  '/:id/review',
   protect,
   asyncHandler(async (req, res) => {
     const { rating, comment } = req.body;
-    const product = await Product.findById(req.params.id);
+    const product = await Product.findById(req.params.id).populate('user', 'name');
 
     if (product) {
-      const alreadyReviewed = product.reviews.find(
-        (r) => r.user.toString() === req.user._id.toString()
+      const orders = await Order.find({ user: req.user._id });
+      const orderedProduct = orders.some(order =>
+        order.orderItems.some(item => item.product.toString() === product._id.toString() && !item.isReviewed)
       );
-      if (alreadyReviewed) {
+
+      if (!orderedProduct) {
         res.status(400);
-        throw new Error("Product already Reviewed");
+        throw new Error('You can only review products you have purchased and not yet reviewed');
       }
+
       const review = {
         name: req.user.name,
         rating: Number(rating),
@@ -83,13 +108,38 @@ productRoute.post(
         product.reviews.length;
 
       await product.save();
-      res.status(201).json({ message: "Reviewed Added" });
+
+      // Mark the product as reviewed in the order
+      await Order.updateOne(
+        { user: req.user._id, "orderItems.product": product._id },
+        { $set: { "orderItems.$.isReviewed": true } }
+      );
+
+      // Check and assign trusted seller badge
+      await checkAndAssignTrustedBadge(product.user._id);
+
+      res.status(201).json({ message: 'Review added' });
     } else {
       res.status(404);
-      throw new Error("Product not Found");
+      throw new Error('Product not found');
     }
   })
 );
+
+// FETCH SELLER REVIEWS
+productRoute.get(
+  '/seller/:sellerId/reviews',
+  asyncHandler(async (req, res) => {
+    const { sellerId } = req.params;
+    const products = await Product.find({ user: sellerId });
+    let reviews = [];
+    products.forEach(product => {
+      reviews = reviews.concat(product.reviews);
+    });
+    res.json(reviews);
+  })
+);
+
 
 // DELETE PRODUCT
 productRoute.delete(
@@ -109,35 +159,43 @@ productRoute.delete(
 );
 
 // CREATE PRODUCT
-productRoute.post(
-  "/",
-  protect,
- // admin,
-  asyncHandler(async (req, res) => {
-    const { name, price, description, image, countInStock } = req.body;
+productRoute.post('/', protect, asyncHandler(async (req, res) => {
+  const { name, price, description, countInStock, image, category, type, size, color, author, publicationYear, pageCount, quality } = req.body;
+
+  try {
     const productExist = await Product.findOne({ name });
     if (productExist) {
-      res.status(400);
-      throw new Error("Product name already exist");
-    } else {
-      const product = new Product({
-        name,
-        price,
-        description,
-        image,
-        countInStock,
-        user: req.user._id,
-      });
-      if (product) {
-        const createdproduct = await product.save();
-        res.status(201).json(createdproduct);
-      } else {
-        res.status(400);
-        throw new Error("Invalid product data");
-      }
+      return res.status(400).json({ message: "Product name already exists" });
     }
-  })
-);
+
+    const product = new Product({
+      name,
+      price,
+      description,
+      image,
+      countInStock,
+      category,
+      type,
+      size,
+      color,
+      author,
+      publicationYear,
+      pageCount,
+      quality,
+      user: req.user._id,
+    });
+
+    const createdProduct = await product.save();
+    res.status(201).json({ message: 'Product uploaded successfully', product: createdProduct });
+  } catch (error) {
+    console.error('Error creating product:', error);  // Add detailed logging
+    res.status(500).json({ message: 'Failed to upload product', error: error.message });
+  }
+}));
+
+
+
+
 
 // UPDATE PRODUCT
 productRoute.put(

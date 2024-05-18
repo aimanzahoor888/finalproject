@@ -2,10 +2,11 @@ import express from "express";
 import asyncHandler from "express-async-handler";
 import { admin, protect } from "../Middleware/AuthMiddleware.js";
 import Order from "./../Models/OrderModel.js";
+import Product from "../Models/ProductModel.js";
+
 
 const orderRouter = express.Router();
 
-// CREATE ORDER
 orderRouter.post(
   "/",
   protect,
@@ -25,6 +26,19 @@ orderRouter.post(
       throw new Error("No order items");
       return;
     } else {
+      // Reduce the stock for each ordered item
+      for (const item of orderItems) {
+        const product = await Product.findById(item.product);
+        if (product) {
+          product.countInStock -= item.qty;
+          if (product.countInStock < 0) {
+            res.status(400);
+            throw new Error("Insufficient stock for item: " + product.name);
+          }
+          await product.save();
+        }
+      }
+
       const order = new Order({
         orderItems,
         user: req.user._id,

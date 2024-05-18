@@ -13,7 +13,9 @@ import {
     PRODUCT_CREATE_REQUEST,
     PRODUCT_CREATE_RESET,
     PRODUCT_CREATE_SUCCESS,
-    
+    SELLER_REVIEWS_REQUEST,
+  SELLER_REVIEWS_SUCCESS,
+  SELLER_REVIEWS_FAIL,
   
 } from "../Constants/ProductConstants";
 
@@ -80,6 +82,19 @@ export const productCreateReducer = (state = {}, action) => {
       return { loading: false, error: action.payload };
     case PRODUCT_CREATE_RESET:
       return {};
+    default:
+      return state;
+  }
+};
+// Reducer (productReducers.js)
+export const sellerReviewsReducer = (state = { reviews: [] }, action) => {
+  switch (action.type) {
+    case SELLER_REVIEWS_REQUEST:
+      return { loading: true, reviews: [] };
+    case SELLER_REVIEWS_SUCCESS:
+      return { loading: false, reviews: action.payload };
+    case SELLER_REVIEWS_FAIL:
+      return { loading: false, error: action.payload };
     default:
       return state;
   }
