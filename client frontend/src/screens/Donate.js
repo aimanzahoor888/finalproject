@@ -3,14 +3,13 @@ import Header from '../components/Header';
 import Footer from '../components/Footer';
 
 const Donate = () => {
-    const holdLogoUrl = 'https://png.pngtree.com/png-clipart/20230120/original/pngtree-charity-and-donating-clothes-concept-png-image_8924784.png';
+    //const holdLogoUrl = 'https://png.pngtree.com/png-clipart/20230120/original/pngtree-charity-and-donating-clothes-concept-png-image_8924784.png';
 
     return (
         <>
             <Header />
             <div className="content">
                 <div className="intro-section">
-                    <img src={holdLogoUrl} alt="HOLD Logo" className="hold-logo" />
                     <p className="intro-text">
                         <strong>Thriftn'</strong> is proud to collaborate with <strong>HOLD (Hope for Lively Days)</strong>, an NGO dedicated to creating lasting solutions for the community. Your donations of shoes and clothes can make a significant impact on the lives of those in need.
                     </p>

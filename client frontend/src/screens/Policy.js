@@ -4,14 +4,13 @@ import Footer from '../components/Footer';
 
 const Policy = () => {
 
-    const policyLogoUrl = 'https://cdn-icons-png.freepik.com/512/6389/6389245.png';
+    //const policyLogoUrl = 'https://cdn-icons-png.freepik.com/512/6389/6389245.png';
     return (
         <>
             <Header />
             <div className="content">
             <div className="intro-section">
-            <img src={policyLogoUrl} alt="POLICY Logo" className="policy-logo" />
-                <h2>Our Policies</h2>
+                <h1>Our Policies</h1>
                 </div>
                 <ul><li><h2>Return Policy</h2></li></ul>
                 <p>No returns are allowed, but if the seller sends the wrong item, you can write reviews and they'll be noticed or send an email with proof at <a href="mailto:help@thriftn.com">help@thriftn.com</a>. We'll consider it and ask the seller for a refund. If the seller is at fault and denies it, he/she will be blocked from posting further products on Thriftn'.</p>

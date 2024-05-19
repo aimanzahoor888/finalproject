@@ -136,10 +136,12 @@ const SingleProduct = ({ history, match }) => {
                             <div className="col-md-6">
                                 {product.user && (
                                     <div className="product-dtl">
-                                        <p>Posted by: {product.user.name}</p>
+                                        <div className="seller-info">
+                                        <p className="seller-name">Posted by: {product.user.name}</p>
                                         {product.user.isTrustedSeller && (
                                             <span className="trusted-seller-badge">Trusted Seller</span>
                                         )}
+                                    </div>
                                     </div>
                                 )}
                                 <div className="single-image">
