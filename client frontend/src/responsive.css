@@ -246,3 +246,29 @@ button {
 .order-info-wrap .icontext {
   margin-bottom: 1rem;
 }
+/* Mobile responsiveness for form-section */
+@media (max-width: 575.98px) {
+  .form-section {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .form-section input[type="submit"] {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .form-section a {
+    width: 100%;
+  }
+
+  .form-section a input[type="submit"] {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .form-section {
+    gap: 10px;
+  }
+}
