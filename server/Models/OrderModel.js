@@ -30,7 +30,7 @@ const orderSchema = mongoose.Schema(
     paymentMethod: {
       type: String,
       required: true,
-      default: "Paypal",
+      default: "Cash On Delivery",
     },
     paymentResult: {
       id: { type: String },

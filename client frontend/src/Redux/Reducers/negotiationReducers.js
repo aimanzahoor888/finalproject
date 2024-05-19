@@ -8,6 +8,12 @@ import {
     GET_NEGOTIATION_DETAILS_REQUEST,
     GET_NEGOTIATION_DETAILS_SUCCESS,
     GET_NEGOTIATION_DETAILS_FAIL,
+    GET_SELLER_NEGOTIATIONS_REQUEST,
+    GET_SELLER_NEGOTIATIONS_SUCCESS,
+    GET_SELLER_NEGOTIATIONS_FAIL,
+    GET_BUYER_NEGOTIATIONS_REQUEST,
+  GET_BUYER_NEGOTIATIONS_SUCCESS,
+  GET_BUYER_NEGOTIATIONS_FAIL,
 } from '../Constants/negotiationConstants';
 
 export const negotiationInitiateReducer = (state = {}, action) => {
@@ -47,4 +53,30 @@ export const negotiationDetailsReducer = (state = { negotiation: {} }, action) =
         default:
             return state;
     }
+};
+
+export const sellerNegotiationsReducer = (state = { negotiations: [] }, action) => {
+    switch (action.type) {
+        case GET_SELLER_NEGOTIATIONS_REQUEST:
+            return { loading: true, negotiations: [] };
+        case GET_SELLER_NEGOTIATIONS_SUCCESS:
+            return { loading: false, negotiations: action.payload };
+        case GET_SELLER_NEGOTIATIONS_FAIL:
+            return { loading: false, error: action.payload };
+        default:
+            return state;
+    }
+};
+
+export const buyerNegotiationsReducer = (state = { negotiations: [] }, action) => {
+  switch (action.type) {
+    case GET_BUYER_NEGOTIATIONS_REQUEST:
+      return { loading: true, negotiations: [] };
+    case GET_BUYER_NEGOTIATIONS_SUCCESS:
+      return { loading: false, negotiations: action.payload };
+    case GET_BUYER_NEGOTIATIONS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
 };

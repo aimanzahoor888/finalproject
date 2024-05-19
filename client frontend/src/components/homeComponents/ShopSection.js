@@ -17,6 +17,7 @@ const ShopSection = (props) => {
   useEffect(() => {
     dispatch(listProduct(keyword, pagenumber));
   }, [dispatch, keyword, pagenumber]);
+
   return (
     <>
       <div className="container">
@@ -32,6 +33,8 @@ const ShopSection = (props) => {
                   <Message variant="alert-danger">{error}</Message>
                 ) : (
                   <>
+                    {/* Conditionally render the heading */}
+                    <h2 className="section-heading">{page === 1 ? "Newly added items" : "All items"}</h2>
                     {products.map((product) => (
                       <div
                         className="shop col-lg-4 col-md-6 col-sm-6"

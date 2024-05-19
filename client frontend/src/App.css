@@ -930,3 +930,19 @@ ul.row-sm {
 .check button :hover {
   background-color: #45a049;
 }
+.button-spacing {
+  margin-top: 10px; /* Adjust this value as needed */
+}
+
+.newly-added-heading,
+.all-items-heading {
+  text-align: center;
+  font-family: inherit;
+  margin: 20px 0;
+}
+
+.section-heading {
+  text-align: center;
+  font-family: "Josefin Sans", sans-serif;;/* Replace with your project's font family */
+  margin: 20px 0; /* Optional: Adjust the margin as needed */
+}

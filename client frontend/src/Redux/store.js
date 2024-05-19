@@ -25,6 +25,8 @@ import {
   negotiationInitiateReducer,
   negotiationRespondReducer,
   negotiationDetailsReducer,
+  sellerNegotiationsReducer,
+  buyerNegotiationsReducer,
 } from './Reducers/negotiationReducers';
 
 const reducer = combineReducers({
@@ -41,6 +43,8 @@ const reducer = combineReducers({
   negotiationInitiate: negotiationInitiateReducer,
   negotiationRespond: negotiationRespondReducer,
   negotiationDetails: negotiationDetailsReducer,
+  sellerNegotiations: sellerNegotiationsReducer,
+  buyerNegotiations: buyerNegotiationsReducer,
   orderCreate: orderCreateReducer,
   orderDetails: orderDetailsReducer,
   orderPay: orderPayReducer,

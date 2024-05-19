@@ -13,7 +13,7 @@ const PaymentScreen = ({ history }) => {
     history.push("/shipping");
   }
 
-  const [paymentMethod, setPaymentMethod] = useState("PayPal");
+  const [paymentMethod, setPaymentMethod] = useState("Cash On Delivery");
 
   const dispatch = useDispatch();
 

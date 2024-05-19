@@ -63,7 +63,7 @@ const Header = () => {
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
                 <Link to="/addproduct">
-                  <input value="SELL" name="sell" type="submit" />
+                <span className="text">Sell</span>
                 </Link>
                   {userInfo ? (
                     <div className="btn-group">
@@ -158,7 +158,7 @@ const Header = () => {
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
               <Link to="/addproduct">
-                  <input value="SELL" name="sell" type="submit" />
+              <span className="text">Sell</span>
                 </Link>
                 {userInfo ? (
                   <div className="btn-group">

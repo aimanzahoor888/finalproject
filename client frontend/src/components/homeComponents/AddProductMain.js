@@ -276,7 +276,7 @@ const AddProductMain = () => {
                     {imageBase64 && <img src={imageBase64} alt="Selected" style={{ width: '100px', marginTop: '10px' }} />}
                   </div>
                   <div className="check">
-                    <button type="submit" className="btn btn-primary">Publish now</button>
+                    <button type="submit" className="btn btn-primary">Post</button>
                   </div>
                 </div>
               </div>

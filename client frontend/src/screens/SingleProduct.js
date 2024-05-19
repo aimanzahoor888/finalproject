@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { createProductReview, listProductDetails, listSellerReviews } from "../Redux/Actions/ProductActions";
 import { listMyOrders } from "../Redux/Actions/OrderActions";
-import { initiateNegotiation, respondNegotiation, getNegotiationDetails } from "../Redux/Actions/negotiationActions";
+import { initiateNegotiation, getNegotiationDetails } from "../Redux/Actions/negotiationActions";
 import { PRODUCT_CREATE_REVIEW_RESET } from "../Redux/Constants/ProductConstants";
 import Header from "./../components/Header";
 import Rating from "../components/homeComponents/Rating";
@@ -10,15 +10,19 @@ import Message from "./../components/LoadingError/Error";
 import Loading from "../components/LoadingError/Loading";
 import moment from "moment";
 import { Link } from "react-router-dom";
+import BuyerNegotiations from "./../components/BuyerNegotiations";
+import SellerNegotiations from "./../components/SellerNegotiations";
 
 const SingleProduct = ({ history, match }) => {
     const [qty, setQty] = useState(1);
     const [rating, setRating] = useState(0);
     const [comment, setComment] = useState("");
     const [negotiationPrice, setNegotiationPrice] = useState(0);
-    const [counterOffer, setCounterOffer] = useState(0);
     const [negotiationId, setNegotiationId] = useState(null);
     const [showNegotiationInput, setShowNegotiationInput] = useState(false);
+    const [showNegotiationRequests, setShowNegotiationRequests] = useState(false);
+    const [showBuyerNegotiations, setShowBuyerNegotiations] = useState(false);
+    const [newNegotiationCount, setNewNegotiationCount] = useState(0);
 
     const productId = match.params.id;
     const dispatch = useDispatch();
@@ -65,6 +69,18 @@ const SingleProduct = ({ history, match }) => {
         }
     }, [dispatch, productId, successCreateReview, userInfo, product]);
 
+    useEffect(() => {
+        if (negotiationId) {
+            dispatch(getNegotiationDetails(negotiationId));
+        }
+    }, [negotiationId, dispatch]);
+
+    useEffect(() => {
+        if (negotiation && negotiation.status === "pending") {
+            setNewNegotiationCount(prevCount => prevCount + 1);
+        }
+    }, [negotiation]);
+
     const AddToCartHandle = (e) => {
         e.preventDefault();
         history.push(`/cart/${productId}?qty=${qty}`);
@@ -85,17 +101,24 @@ const SingleProduct = ({ history, match }) => {
         try {
             const data = await dispatch(initiateNegotiation(product._id, negotiationPrice));
             setNegotiationId(data._id);  // Set negotiation ID from response
+            setShowNegotiationInput(false);
             console.log("Negotiation initiated with ID:", data._id);
         } catch (error) {
             console.error("Error initiating negotiation:", error);
         }
     };
 
-    const respondNegotiate = (status, counterPrice) => {
-        if (negotiationId) {
-            dispatch(respondNegotiation(negotiationId, status, counterPrice));
-        } else {
-            console.error("Negotiation ID is not defined");
+    const toggleNegotiationRequests = () => {
+        setShowNegotiationRequests(prevState => !prevState);
+        if (newNegotiationCount > 0) {
+            setNewNegotiationCount(0);
+        }
+    };
+
+    const toggleBuyerNegotiations = () => {
+        setShowBuyerNegotiations(prevState => !prevState);
+        if (newNegotiationCount > 0) {
+            setNewNegotiationCount(0);
         }
     };
 
@@ -112,8 +135,8 @@ const SingleProduct = ({ history, match }) => {
                         <div className="row">
                             <div className="col-md-6">
                                 {product.user && (
-                                    <div className="posted-by">
-                                        <h2>Posted by: {product.user.name}</h2>
+                                    <div className="product-dtl">
+                                        <p>Posted by: {product.user.name}</p>
                                         {product.user.isTrustedSeller && (
                                             <span className="trusted-seller-badge">Trusted Seller</span>
                                         )}
@@ -201,7 +224,7 @@ const SingleProduct = ({ history, match }) => {
                                             <h6>Estimated quality of image</h6>
                                             <span style={{ textAlign: "center" }}>{product?.quality}</span>
                                         </div>
-                                        {product?.countInStock > 0 && (
+                                        {userInfo && userInfo._id !== product?.user?._id && product?.countInStock > 0 && (
                                             <>
                                                 <div className="flex-box d-flex justify-content-between align-items-center">
                                                     <h6>Quantity</h6>
@@ -218,79 +241,67 @@ const SingleProduct = ({ history, match }) => {
                                                 </div>
                                                 <button
                                                     onClick={AddToCartHandle}
-                                                    className="round-black-btn"
+                                                    className="round-black-btn button-spacing"
                                                 >
                                                     Add To Cart
                                                 </button>
                                                 {/* Negotiate Section for Buyers */}
-                                                {userInfo && userInfo._id !== product?.user?._id && (
-                                                    <div>
-                                                        <h6>Negotiate</h6>
-                                                        {!showNegotiationInput ? (
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => setShowNegotiationInput(true)}
-                                                            >
-                                                                Negotiate
-                                                            </button>
-                                                        ) : (
-                                                            <div>
-                                                                <input
-                                                                    type="number"
-                                                                    value={negotiationPrice}
-                                                                    onChange={(e) => setNegotiationPrice(e.target.value)}
-                                                                    placeholder="Enter your offer"
-                                                                />
-                                                                <button
-                                                                    type="button"
-                                                                    onClick={initiateNegotiate}
-                                                                >
-                                                                    Submit
-                                                                </button>
-                                                            </div>
-                                                        )}
-                                                    </div>
-                                                )}
-                                                {negotiationId && <p>Pending</p>}
-                                            </>
-                                        )}
-                                        {/* Negotiate Section for Sellers */}
-                                        {userInfo &&
-                                            userInfo._id === product?.user?._id &&
-                                            negotiation && (
                                                 <div>
-                                                    <h6>Negotiation</h6>
-                                                    <p>Status: {negotiation?.status}</p>
-                                                    {negotiation?.status === "pending" && (
+                                                    {showNegotiationInput ? (
                                                         <div>
                                                             <input
                                                                 type="number"
-                                                                value={counterOffer}
-                                                                onChange={(e) => setCounterOffer(e.target.value)}
-                                                                placeholder="Counter offer"
+                                                                value={negotiationPrice}
+                                                                onChange={(e) =>
+                                                                    setNegotiationPrice(e.target.value)
+                                                                }
+                                                                placeholder="Enter your offer"
                                                             />
                                                             <button
                                                                 type="button"
-                                                                onClick={() => respondNegotiate("accepted", counterOffer)}
+                                                                onClick={initiateNegotiate}
                                                             >
-                                                                Accept
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => respondNegotiate("rejected")}
-                                                            >
-                                                                Reject
-                                                            </button>
-                                                            <button
-                                                                type="button"
-                                                                onClick={() => respondNegotiate("countered", counterOffer)}
-                                                            >
-                                                                Counter
+                                                                Submit
                                                             </button>
                                                         </div>
+                                                    ) : (
+                                                        <button
+                                                            type="button"
+                                                            onClick={() => setShowNegotiationInput(true)}
+                                                            className="round-black-btn button-spacing"
+                                                        >
+                                                            Negotiate
+                                                        </button>
+                                                    )}
+                                                    {negotiationId && <p>Status: pending</p>}
+                                                    <button 
+                                                        className="round-black-btn button-spacing"
+                                                        onClick={toggleBuyerNegotiations}
+                                                    >
+                                                        Negotiation Status
+                                                    </button>
+                                                    {showBuyerNegotiations && (
+                                                        <BuyerNegotiations productId={productId} />
                                                     )}
                                                 </div>
-                                            )}
+                                            </>
+                                        )}
+                                        {/* Negotiate Section for Sellers */}
+                                        {userInfo && userInfo._id === product?.user?._id && (
+                                            <div>
+                                                {product?.countInStock > 0 && (
+                                                    <button 
+                                                        className="round-black-btn button-spacing"
+                                                        onClick={toggleNegotiationRequests}
+                                                    >
+                                                        Negotiate Requests {newNegotiationCount > 0 && `(${newNegotiationCount})`}
+                                                    </button>
+                                                )}
+                                                {showNegotiationRequests && (
+                                                    <SellerNegotiations productId={productId} />
+                                                )}
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </div>
@@ -345,7 +356,7 @@ const SingleProduct = ({ history, match }) => {
                                         <div className="my-4">
                                             <strong>Comment</strong>
                                             <textarea
-                                                row="3"
+                                                rows="3"
                                                 value={comment}
                                                 onChange={(e) => setComment(e.target.value)}
                                                 className="col-12 bg-light p-3 mt-2 border-0 rounded"

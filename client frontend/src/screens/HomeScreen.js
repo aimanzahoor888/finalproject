@@ -6,22 +6,20 @@ import CalltoActionSection from "./../components/homeComponents/CalltoActionSect
 import Footer from "./../components/Footer";
 import ChatComponent from "../components/homeComponents/ChatComponent";
 
-
-
 const HomeScreen = ({ match }) => {
-  window.scrollTo(0, 0);
-  const keyword = match.params.keyword;
-  const pagenumber = match.params.pagenumber;
-  return (
-    <div>
-      <Header />
-      <ShopSection keyword={keyword} pagenumber={pagenumber} />
-      <CalltoActionSection />
-      <ContactInfo />
-      <Footer />
-      <ChatComponent /> 
-    </div>
-  );
+    window.scrollTo(0, 0);
+    const keyword = match.params.keyword;
+    const pagenumber = match.params.pagenumber;
+    return (
+        <div>
+            <Header />
+            <ShopSection keyword={keyword} pagenumber={pagenumber} />
+            <CalltoActionSection />
+            <ContactInfo />
+            <Footer />
+            <ChatComponent /> 
+        </div>
+    );
 };
 
 export default HomeScreen;
