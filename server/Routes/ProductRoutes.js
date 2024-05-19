@@ -64,7 +64,7 @@ productRoute.get(
 productRoute.get(
   "/:id",
   asyncHandler(async (req, res) => {
-    const product = await Product.findById(req.params.id).populate('user', 'name email');
+    const product = await Product.findById(req.params.id).populate('user', 'name email isTrustedSeller');
     if (product) {
       res.json(product);
     } else {

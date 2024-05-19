@@ -3,7 +3,7 @@ import asyncHandler from "express-async-handler";
 import { admin, protect } from "../Middleware/AuthMiddleware.js";
 import Order from "./../Models/OrderModel.js";
 import Product from "../Models/ProductModel.js";
-
+import { checkAndAssignTrustedBadge } from "../utils/Utils.js";
 
 const orderRouter = express.Router();
 
@@ -51,6 +51,13 @@ orderRouter.post(
       });
 
       const createOrder = await order.save();
+      // Check and assign trusted seller badge
+      const products = await Product.find({ _id: { $in: orderItems.map(item => item.product) } });
+      const sellers = [...new Set(products.map(product => product.user))];
+      for (const seller of sellers) {
+        await checkAndAssignTrustedBadge(seller);
+      }
+      
       res.status(201).json(createOrder);
     }
   })

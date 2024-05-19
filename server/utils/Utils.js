@@ -2,26 +2,28 @@ import Order from "../Models/OrderModel.js";
 import User from "../Models/UserModel.js";
 import Product from "../Models/ProductModel.js";
 
-// Check and assign the trusted seller badge
 export const checkAndAssignTrustedBadge = async (userId) => {
-  try {
-    // Fetch all products sold by the user
-    const products = await Product.find({ user: userId });
-    
-    // Collect all reviews for these products
-    const allReviews = products.flatMap(product => product.reviews);
-    
-    // Count the total number of reviews
-    const reviewsCount = allReviews.length;
+  const products = await Product.find({ user: userId });
+  let totalReviews = 0;
+  let totalRating = 0;
 
-    // Count the number of good reviews (rating >= 4)
-    const goodReviewsCount = allReviews.filter(review => review.rating >= 4).length;
+  // Check for placed orders
+  const orders = await Order.find({ "orderItems.product": { $in: products.map(p => p._id) } });
 
-    // Check if the user meets the criteria for being a trusted seller
-    if (reviewsCount >= 2 && goodReviewsCount / reviewsCount >= 0.8) {
-      await User.findByIdAndUpdate(userId, { isTrustedSeller: true });
-    }
-  } catch (error) {
-    console.error("Error checking and assigning trusted badge", error);
-  }
+  // Count the total number of placed orders
+  const totalPlacedOrders = orders.length;
+
+  // Count the total number of reviews and calculate total rating
+  products.forEach((product) => {
+    totalReviews += product.reviews.length;
+    totalRating += product.reviews.reduce((acc, review) => acc + review.rating, 0);
+  });
+
+  // Calculate average rating
+  const averageRating = totalReviews > 0 ? totalRating / totalReviews : 0;
+
+  // Determine if the seller should be marked as trusted
+  const isTrustedSeller = totalPlacedOrders >= 5 && totalReviews >= 4 && averageRating > 3;
+
+  await User.updateOne({ _id: userId }, { isTrustedSeller });
 };
