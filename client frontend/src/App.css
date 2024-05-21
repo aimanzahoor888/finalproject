@@ -949,13 +949,54 @@ p {
   }
 }
 
-.hold-logo {
-  width: 100%;
-  height: auto;
-  max-height: 200px; /* Adjust the height as necessary */
-  object-fit: contain;
-  margin-bottom: 20px;
+.instagram-img {
+  width: 20%; /* Control the width of Instagram images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the space without stretching */
+  margin: 0px; /* No space around images */
 }
+
+.instagramimg {
+  width: 19%; /* Control the width of Instagram images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the space without stretching */
+  margin: 0px; /* No space around images */
+}
+
+.hold-logo {
+  width: 20%; /* Control the width of the logo */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the logo fits well without being cropped */
+  margin: 0px; /* No space around the logo */
+}
+
+.image-row {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 20px; /* Add some bottom margin */
+  padding: 0; /* Ensure no padding is causing unexpected space */
+}
+
+.imagerow {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  margin-bottom: 20px; /* Add some bottom margin */
+  padding: 0; /* Ensure no padding is causing unexpected space */
+}
+
+
+
+.donation-image {
+  width: 30%; /* Consistent with other images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the space without stretching */
+  margin: 8px; /* Space around images */
+}
+
+
+
 .policy-logo {
   width: 100%;
   height: auto;
@@ -1051,4 +1092,12 @@ p {
   text-align: center;
   font-family: "Josefin Sans", sans-serif;;/* Replace with your project's font family */
   margin: 20px 0; /* Optional: Adjust the margin as needed */
+}
+.intro-text {
+  font-size: 1.2rem; /* Increase font size */
+  line-height: 1.6; /* Increase line height for better readability */
+  margin-top: 20px; /* Add some space above the text */
+  margin-bottom: 20px; /* Add some space below the text */
+  text-align: justify; /* Justify text for a cleaner look */
+  color: #333; /* Dark grey color for better readability */
 }
