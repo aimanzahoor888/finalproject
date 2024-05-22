@@ -963,6 +963,13 @@ p {
   margin: 0px; /* No space around images */
 }
 
+.instagramimg1 {
+  width: 20%; /* Control the width of Instagram images */
+  height: auto; /* Maintain aspect ratio */
+  object-fit: cover; /* Cover the space without stretching */
+  margin: 0px; /* No space around images */
+}
+
 .hold-logo {
   width: 20%; /* Control the width of the logo */
   height: auto; /* Maintain aspect ratio */
@@ -989,14 +996,11 @@ p {
 
 
 .donation-image {
-  width: 30%; /* Consistent with other images */
+  width: 25%; /* Consistent with other images */
   height: auto; /* Maintain aspect ratio */
   object-fit: cover; /* Cover the space without stretching */
-  margin: 8px; /* Space around images */
+  margin: 5px; /* Space around images */
 }
-
-
-
 .policy-logo {
   width: 100%;
   height: auto;
@@ -1093,6 +1097,110 @@ p {
   font-family: "Josefin Sans", sans-serif;;/* Replace with your project's font family */
   margin: 20px 0; /* Optional: Adjust the margin as needed */
 }
+
+.search-box {
+  position: absolute;
+  top: 100%; /* Adjust as needed */
+  left: 0;
+  width: 100%;
+  background: #fff;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  display: none; /* Hide by default */
+}
+
+.search:focus + .search-box {
+  display: block; /* Show when search input is focused */
+}
+/* Filter button styles */
+/* Filter button styles */
+/* Filter Button */
+.filter-toggle {
+  cursor: pointer;
+  z-index: 1000;
+}
+
+.filter-badge {
+  background-color: #1cb803; /* You can choose any color */
+  color: white;
+  padding: 10px 15px;
+  border-radius: 0px;
+  font-size: 18px;
+  font-weight: normal;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Sidebar Filters */
+.filters {
+  position: fixed;
+  top: 0;
+  right: -300px; /* Start off-screen */
+  width: 300px;
+  height: 100%;
+  background: #fff;
+  box-shadow: -2px 0 5px rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 20px;
+  transition: right 0.3s ease;
+  overflow-y: auto; /* Make the sidebar scrollable */
+}
+
+.filters.show {
+  right: 0; /* Move in when shown */
+}
+
+.filter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ccc; /* Light grey border */
+  margin-bottom: 10px;
+}
+
+.filter-header h4 {
+  margin: 0;
+}
+
+.close-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color:black;
+}
+
+.filter-section {
+  margin-bottom: 20px;
+}
+
+.filter-section h5 {
+  margin-bottom: 10px;
+}
+
+.filter-section label {
+  font-weight: bold;
+  margin-bottom: 10px;
+  display: block;
+}
+
+.filter-section input[type="checkbox"],
+.filter-section input[type="radio"] {
+  margin-right: 10px;
+}
+
+/* Ensures the container for the filter button is properly aligned */
+.filter-container {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 10px;
+}
+
 .intro-text {
   font-size: 1.2rem; /* Increase font size */
   line-height: 1.6; /* Increase line height for better readability */
@@ -1100,4 +1208,56 @@ p {
   margin-bottom: 20px; /* Add some space below the text */
   text-align: justify; /* Justify text for a cleaner look */
   color: #333; /* Dark grey color for better readability */
+}
+.header-search-buttons {
+  display: flex;
+  justify-content: space-around; /* Evenly space items */
+  margin-top: 10px;
+  padding: 0 5%; /* Matching the search bar's outer spacing */
+  width: 90%; /* Same width as the search bar */
+  box-sizing: border-box; /* Includes padding in the width */
+}
+
+.header-button, .header-button div {
+  background-color: transparent;
+  color: black;
+  padding: 10px 20px;
+  margin: 0; /* Remove margins to eliminate space between buttons */
+  cursor: pointer;
+  font-size: 16px;
+  transition: all 0.3s;
+  border-radius: 25px; /* Ensures rounded corners */
+  flex-grow: 1; /* Ensures buttons expand to fill space */
+  text-align: center; /* Centers text within the button */
+}
+
+.header-button:hover {
+  background-color: #1cb803; /* Your project's green color */
+  color: white;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f97b; /* Semi-transparent background */
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+  border-radius: 10px; /* Rounded corners for dropdown */
+}
+
+.header-button:hover .dropdown-content {
+  display: block; /* Shows dropdown on hover */
+}
+
+.dropdown-content a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left; /* Align text to the left within dropdown */
+}
+
+.dropdown-content a:hover {
+  background-color: #f1f1f1; /* Light gray background on hover for dropdown links */
 }

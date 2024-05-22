@@ -7,11 +7,14 @@ import { faLink } from '@fortawesome/free-solid-svg-icons'; // Use a generic lin
 
 const Donate = () => {
     const holdLogoUrl = 'https://scontent.flhe3-2.fna.fbcdn.net/v/t39.30808-6/326747410_5551738534955252_2793589331529178095_n.png?_nc_cat=104&ccb=1-7&_nc_sid=5f2048&_nc_ohc=fhRnSxQ9hM0Q7kNvgHmD5rg&_nc_oc=AdjXuBuAKob9z56T2sNqGMmgFAHBy4NtNhQJXeqngj6eEdLREsuJSu2EVT1MdDaVFz4&_nc_ht=scontent.flhe3-2.fna&oh=00_AYBQsbBVuE97Kkn0ZqvtP-1o97ULYt6yfokSx1ybXNu-BA&oe=6652A8FE';
+    const leftImage1Url = 'https://scontent.flhe3-1.fna.fbcdn.net/v/t39.30808-6/213472096_120411620265812_6603966833509669355_n.jpg?_nc_cat=103&ccb=1-7&_nc_sid=5f2048&_nc_ohc=rnwFW2BUY4IQ7kNvgHC9Q09&_nc_ht=scontent.flhe3-1.fna&oh=00_AYCRbuf9-TyWA5ZI8gQygwXMjEcsJrQLlE1Fe8Nl09xueA&oe=6653F517';
     const leftImageUrl = 'https://scontent.flhe3-2.fna.fbcdn.net/v/t39.30808-6/259657149_197665695873737_332819355220117109_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=DWnA2Q2vObYQ7kNvgHA_EOJ&_nc_ht=scontent.flhe3-2.fna&oh=00_AYDGKVNi7B4vrJmdqFN9z7tFqnY7M4d7jAqmW1ZZrstSHA&oe=6652998F';
     const rightImageUrl = 'https://scontent.flhe3-2.fna.fbcdn.net/v/t39.30808-6/243226260_163229325984041_931219247887007197_n.jpg?_nc_cat=102&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FppJwgl8uDgQ7kNvgEvzV4q&_nc_ht=scontent.flhe3-2.fna&oh=00_AYB73SDfr8F2tehcn7n2JlHUmFri53poffecz2rRnDs6hw&oe=66529ADA';
+    const rightImage1Url = 'https://scontent.flhe3-2.fna.fbcdn.net/v/t1.6435-9/197854114_113178217655819_6736985013192601927_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sI8h8q25aIYQ7kNvgFdTV9J&_nc_ht=scontent.flhe3-2.fna&oh=00_AYDSrL_hybhWY2fvfKrX0aerIuQ82F2yzYHxho6L3ltohw&oe=6675853E';
     const image1Url = 'https://scontent.flhe3-1.fna.fbcdn.net/v/t39.30808-6/281047559_309078534732452_5299100742185973801_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=sK5TIn9zNasQ7kNvgHZ2Epb&_nc_ht=scontent.flhe3-1.fna&oh=00_AYDJqjeojF9Ozf6LgbNa783LZgycthNJfH9NOCTazKtIaw&oe=6652C046';
     const image2Url = 'https://scontent.flhe3-1.fna.fbcdn.net/v/t39.30808-6/280621782_309078538065785_4087674666147412090_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=FLYN9ZfymakQ7kNvgEKS8LK&_nc_ht=scontent.flhe3-1.fna&oh=00_AYCZw0uFiCJJZlb-N1200XZ--dJ6nU7FqRRcFwJeBIwjVA&oe=6652A9B8';
     const image3Url = 'https://scontent.flhe3-1.fna.fbcdn.net/v/t39.30808-6/279551005_299665795673726_4478296317447972805_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=48IWCI874tEQ7kNvgG_nBYa&_nc_ht=scontent.flhe3-1.fna&oh=00_AYCGOcdpoH4kpeqInp-EkwMdqmUy1dSoBRae-uLYjFVMCA&oe=6652951D';
+    const image4Url = 'https://scontent.flhe3-1.fna.fbcdn.net/v/t39.30808-6/228794057_128560866117554_2206450136647889702_n.jpg?_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_ohc=mlJclNFoBn8Q7kNvgGlWbmx&_nc_ht=scontent.flhe3-1.fna&oh=00_AYDDlBgDqybGit9d4ZVO3LzmEouOPrSIatoLzyGef0foAQ&oe=66540A95';
 
     return (
         <>
@@ -19,8 +22,10 @@ const Donate = () => {
             <div className="content">
                 <div className="image-row">
                     <img src={leftImageUrl} alt="Left side image" className="instagramimg" />
-                    <img src={holdLogoUrl} alt="HOLD Logo" className="hold-logo" />
+                    <img src={leftImage1Url} alt="Left side image" className="instagramimg1" />
+                    <img src={holdLogoUrl} alt="HOLD Logo" className="hold-logo" />    
                     <img src={rightImageUrl} alt="Right side image" className="instagram-img" />
+                    <img src={rightImage1Url} alt="Right side image" className="instagram-img" />
                 </div>
                 <div className="intro-section">
                     <p className="intro-text">
@@ -39,6 +44,7 @@ const Donate = () => {
                     <img src={image1Url} alt="Donation image 1" className="donation-image" />
                     <img src={image2Url} alt="Donation image 2" className="donation-image" />
                     <img src={image3Url} alt="Donation image 3" className="donation-image" />
+                    <img src={image4Url} alt="Donation image 3" className="donation-image" />
                 </div>
                 <ul>
                     <li><h2>How You Can Donate</h2></li>

@@ -201,7 +201,22 @@ const Header = () => {
           </div>
         </div>
       </div>
+      <div className="header-search-buttons">
+    <button className="header-button" onClick={() => history.push('/')}>Home</button>
+    <div className="header-button">Shop By
+        <div className="dropdown-content">
+            <a href="#">Trusted Sellers</a>
+            <a href="#">Price</a>
+        </div>
     </div>
+    <button className="header-button" onClick={() => history.push('/donate')}>Donate</button>
+    <button className="header-button" onClick={() => history.push('/about-us')}>About Us</button>
+</div>
+
+
+
+    </div>
+    
   );
 };
 
