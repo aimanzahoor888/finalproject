@@ -3,7 +3,18 @@ import axios from 'axios';
 import { toast } from 'react-toastify';
 import { useDispatch, useSelector } from 'react-redux';
 import { PRODUCT_CREATE_RESET, PRODUCT_CREATE_SUCCESS, PRODUCT_CREATE_FAIL } from '../../Redux/Constants/ProductConstants';
+import Toast from "../LoadingError/Toast";
+import Message from "../LoadingError/Error";
+import Loading from "../LoadingError/Loading";
+//import axios from 'axios';
 import { URL } from '../Url';
+
+const ToastObjects = {
+  pauseOnFocusLoss: false,
+  draggable: false,
+  pauseOnHover: false,
+  autoClose: 2000,
+};
 
 const AddProductMain = () => {
   const [name, setName] = useState("");
@@ -14,6 +25,7 @@ const AddProductMain = () => {
   const [description, setDescription] = useState("");
   const [category, setCategory] = useState("");
   const [type, setType] = useState("");
+  const [sizeType, setSizeType] = useState("");
   const [size, setSize] = useState("");
   const [color, setColor] = useState("");
   const [author, setAuthor] = useState("");
@@ -29,7 +41,7 @@ const AddProductMain = () => {
 
   useEffect(() => {
     if (product) {
-      toast.success("Product Added Successfully");
+     // toast.success("Product Added Successfully");
       setSubmitSuccess(true);
       dispatch({ type: PRODUCT_CREATE_RESET });
       resetForm();
@@ -39,6 +51,12 @@ const AddProductMain = () => {
   const handleFileChange = (e) => {
     const file = e.target.files[0];
     if (file) {
+      const maxSize = 10 * 1024 * 1024; 
+      if (file.size > maxSize) {
+        toast.error('File size should be less than 10 MB');
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setImageBase64(reader.result);
@@ -69,7 +87,7 @@ const AddProductMain = () => {
       image: imageBase64,
       category,
       type,
-      size,
+      size: sizeType === 'meters' || sizeType === 'inches' ? `${size} ${sizeType}` : sizeType,
       color,
       author,
       publicationYear,
@@ -104,6 +122,7 @@ const AddProductMain = () => {
     setImageQuality('');
     setCategory('');
     setType('');
+    setSizeType('');
     setSize('');
     setColor('');
     setAuthor('');
@@ -113,6 +132,7 @@ const AddProductMain = () => {
 
   return (
     <>
+    <Toast />
       <section className="content-main" style={{ maxWidth: "1200px" }}>
         <form onSubmit={submitHandler}>
           <div className="content-header">
@@ -123,8 +143,8 @@ const AddProductMain = () => {
             <div className="col-xl-8 col-lg-8">
               <div className="card mb-4 shadow-sm">
                 <div className="card-body">
-                  {error && <div className="alert alert-danger">{error}</div>}
-                  {loading && <div className="alert alert-info">Loading...</div>}
+                {error && <Message variant="alert-danger">{error}</Message>}
+                  {loading && <Loading />}
                   {submitSuccess && <div className="alert alert-success">Product submitted successfully!</div>}
                   <div className="mb-4">
                     <label htmlFor="product_title" className="form-label">Product title</label>
@@ -215,15 +235,38 @@ const AddProductMain = () => {
                         </select>
                       </div>
                       <div className="mb-4">
-                        <label className="form-label">Size</label>
-                        <input
-                          type="text"
-                          placeholder="e.g., XS, S, M, L or in meters, inches"
+                        <label className="form-label">Size Type</label>
+                        <select
                           className="form-control"
-                          value={size}
-                          onChange={(e) => setSize(e.target.value)}
-                        />
+                          value={sizeType}
+                          onChange={(e) => setSizeType(e.target.value)}
+                        >
+                          <option value="">Select...</option>
+                          <option value="XS">XS</option>
+                          <option value="S">S</option>
+                          <option value="M">M</option>
+                          <option value="L">L</option>
+                          <option value="XL">XL</option>
+                          <option value="meters">Meters</option>
+                          <option value="inches">Inches</option>
+                        </select>
                       </div>
+                      {sizeType === 'meters' || sizeType === 'inches' ? (
+                        <div className="mb-4">
+                          <label className="form-label">Size in {sizeType}</label>
+                          <input
+                            type="number"
+                            placeholder={`Enter size in ${sizeType}`}
+                            className="form-control"
+                            value={size}
+                            onChange={(e) => setSize(e.target.value)}
+                          />
+                        </div>
+                      ) : sizeType && (
+                        <div className="mb-4">
+                          <label className="form-label">Selected Size: {sizeType}</label>
+                        </div>
+                      )}
                       <div className="mb-4">
                         <label className="form-label">Color</label>
                         <input

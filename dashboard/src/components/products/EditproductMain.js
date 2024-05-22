@@ -26,6 +26,13 @@ const EditProductMain = (props) => {
   const [image, setImage] = useState("");
   const [countInStock, setCountInStock] = useState(0);
   const [description, setDescription] = useState("");
+  const [category, setCategory] = useState("");
+  const [type, setType] = useState("");
+  const [size, setSize] = useState("");
+  const [color, setColor] = useState("");
+  const [author, setAuthor] = useState("");
+  const [publicationYear, setPublicationYear] = useState("");
+  const [pageCount, setPageCount] = useState("");
 
   const dispatch = useDispatch();
 
@@ -52,6 +59,13 @@ const EditProductMain = (props) => {
         setCountInStock(product.countInStock);
         setImage(product.image);
         setPrice(product.price);
+        setCategory(product.category || "");
+        setType(product.type || "");
+        setSize(product.size || "");
+        setColor(product.color || "");
+        setAuthor(product.author || "");
+        setPublicationYear(product.publicationYear || "");
+        setPageCount(product.pageCount || "");
       }
     }
   }, [product, dispatch, productId, successUpdate]);
@@ -66,6 +80,13 @@ const EditProductMain = (props) => {
         description,
         image,
         countInStock,
+        category,
+        type,
+        size,
+        color,
+        author,
+        publicationYear,
+        pageCount,
       })
     );
   };
@@ -130,14 +151,14 @@ const EditProductMain = (props) => {
                         />
                       </div>
                       <div className="mb-4">
-                        <label htmlFor="product_price" className="form-label">
+                        <label htmlFor="product_countInStock" className="form-label">
                           Count In Stock
                         </label>
                         <input
                           type="number"
                           placeholder="Type here"
                           className="form-control"
-                          id="product_price"
+                          id="product_countInStock"
                           required
                           value={countInStock}
                           onChange={(e) => setCountInStock(e.target.value)}
@@ -155,6 +176,101 @@ const EditProductMain = (props) => {
                         ></textarea>
                       </div>
                       <div className="mb-4">
+                        <label className="form-label">Category</label>
+                        <select
+                          className="form-control"
+                          required
+                          value={category}
+                          onChange={(e) => setCategory(e.target.value)}
+                        >
+                          <option value="">Select...</option>
+                          <option value="clothes">Clothes</option>
+                          <option value="books">Books</option>
+                          <option value="bags">Bags</option>
+                          <option value="jewelry">Jewelry</option>
+                          <option value="watches">Watches</option>
+                          <option value="belts">Belts</option>
+                          <option value="sunglasses">Sunglasses</option>
+                          <option value="wall-art">Wall Art</option>
+                          <option value="vases">Vases</option>
+                          <option value="stationary">Stationary</option>
+                          <option value="dolls">Dolls</option>
+                          <option value="educational-toys">Educational Toys</option>
+                          <option value="puzzles">Puzzles</option>
+                          <option value="board-games">Board Games</option>
+                        </select>
+                      </div>
+                      {category === 'clothes' && (
+                        <>
+                          <div className="mb-4">
+                            <label className="form-label">Type</label>
+                            <select
+                              className="form-control"
+                              value={type}
+                              onChange={(e) => setType(e.target.value)}
+                            >
+                              <option value="">Select...</option>
+                              <option value="women">Women</option>
+                              <option value="men">Men</option>
+                              <option value="children">Children</option>
+                            </select>
+                          </div>
+                          <div className="mb-4">
+                            <label className="form-label">Size</label>
+                            <input
+                              type="text"
+                              placeholder="e.g., XS, S, M, L or in meters, inches"
+                              className="form-control"
+                              value={size}
+                              onChange={(e) => setSize(e.target.value)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label className="form-label">Color</label>
+                            <input
+                              type="color"
+                              className="form-control"
+                              value={color}
+                              onChange={(e) => setColor(e.target.value)}
+                            />
+                          </div>
+                        </>
+                      )}
+                      {category === 'books' && (
+                        <>
+                          <div className="mb-4">
+                            <label className="form-label">Author</label>
+                            <input
+                              type="text"
+                              placeholder="Author name (optional)"
+                              className="form-control"
+                              value={author}
+                              onChange={(e) => setAuthor(e.target.value)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label className="form-label">Publication Year</label>
+                            <input
+                              type="number"
+                              placeholder="Publication year (optional)"
+                              className="form-control"
+                              value={publicationYear}
+                              onChange={(e) => setPublicationYear(e.target.value)}
+                            />
+                          </div>
+                          <div className="mb-4">
+                            <label className="form-label">Page Count</label>
+                            <input
+                              type="number"
+                              placeholder="Page count (optional)"
+                              className="form-control"
+                              value={pageCount}
+                              onChange={(e) => setPageCount(e.target.value)}
+                            />
+                          </div>
+                        </>
+                      )}
+                      <div className="mb-4">
                         <label className="form-label">Images</label>
                         <input
                           className="form-control"
@@ -163,6 +279,7 @@ const EditProductMain = (props) => {
                           required
                           onChange={(e) => setImage(e.target.value)}
                         />
+                        <input className="form-control mt-3" type="file" />
                       </div>
                     </>
                   )}

@@ -15,31 +15,41 @@ import {
   SELLER_REVIEWS_REQUEST,
   SELLER_REVIEWS_SUCCESS,
   SELLER_REVIEWS_FAIL,
-  
+  PRODUCT_RECOMMENDATIONS_REQUEST,
+  PRODUCT_RECOMMENDATIONS_SUCCESS,
+  PRODUCT_RECOMMENDATIONS_FAIL,
 } from "../Constants/ProductConstants";
 import { logout } from "./userActions";
+//import { URL } from "../../components/Url";
 import { URL } from "../Url";
 
+
+
 // PRODUCT LIST
-export const listProduct =
-  (keyword = " ", pageNumber = " ") =>
-  async (dispatch) => {
-    try {
-      dispatch({ type: PRODUCT_LIST_REQUEST });
-      const { data } = await axios.get(
-        `${URL}/api/products?keyword=${keyword}&pageNumber=${pageNumber}`
-      );
-      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-    } catch (error) {
-      dispatch({
-        type: PRODUCT_LIST_FAIL,
-        payload:
-          error.response && error.response.data.message
-            ? error.response.data.message
-            : error.message,
-      });
-    }
-  };
+export const listProduct = (keyword = '', pageNumber = '', filters = {}) => async (dispatch) => {
+  try {
+    dispatch({ type: PRODUCT_LIST_REQUEST });
+
+    // Construct query parameters for filters
+    const filterQuery = Object.keys(filters)
+      .map((key) => `${key}=${filters[key]}`)
+      .join('&');
+
+    const { data } = await axios.get(
+      `${URL}/api/products?keyword=${keyword}&pageNumber=${pageNumber}&${filterQuery}`
+    );
+
+    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_LIST_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
+    });
+  }
+};
 
 // SINGLE PRODUCT
 export const listProductDetails = (id) => async (dispatch) => {
@@ -53,47 +63,45 @@ export const listProductDetails = (id) => async (dispatch) => {
       payload:
         error.response && error.response.data.message
           ? error.response.data.message
-          : error.messag,
+          : error.message,
     });
   }
 };
 
 // PRODUCT REVIEW CREATE
-export const createProductReview =
-  (productId, review) => async (dispatch, getState) => {
-    try {
-      dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
+export const createProductReview = (productId, review) => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_CREATE_REVIEW_REQUEST });
 
-      const {
-        userLogin: { userInfo },
-      } = getState();
+    const {
+      userLogin: { userInfo },
+    } = getState();
 
-      const config = {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${userInfo.token}`,
-        },
-      };
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
 
-      await axios.post(`${URL}/api/products/${productId}/review`, review, config);
-      dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
-    } catch (error) {
-      const message =
-        error.response && error.response.data.message
-          ? error.response.data.message
-          : error.message;
-      if (message === "Not authorized, token failed") {
-        dispatch(logout());
-      }
-      dispatch({
-        type: PRODUCT_CREATE_REVIEW_FAIL,
-        payload: message,
-      });
+    await axios.post(`${URL}/api/products/${productId}/review`, review, config);
+    dispatch({ type: PRODUCT_CREATE_REVIEW_SUCCESS });
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message;
+    if (message === "Not authorized, token failed") {
+      dispatch(logout());
     }
-  };
+    dispatch({
+      type: PRODUCT_CREATE_REVIEW_FAIL,
+      payload: message,
+    });
+  }
+};
 
 // FETCH SELLER REVIEWS
-// Actions (ProductActions.js)
 export const listSellerReviews = (sellerId) => async (dispatch) => {
   try {
     dispatch({ type: SELLER_REVIEWS_REQUEST });
@@ -111,9 +119,9 @@ export const listSellerReviews = (sellerId) => async (dispatch) => {
 };
 
 // CREATE PRODUCT
-export const createProduct =
-(name, price, description, image, countInStock, category, type, size, color, author, publicationYear, pageCount, quality) =>
-async (dispatch, getState) => {
+export const createProduct = (
+  name, price, description, image, countInStock, category, type, size, color, author, publicationYear, pageCount, quality
+) => async (dispatch, getState) => {
   try {
     dispatch({ type: PRODUCT_CREATE_REQUEST });
 
@@ -145,6 +153,34 @@ async (dispatch, getState) => {
     dispatch({
       type: PRODUCT_CREATE_FAIL,
       payload: message,
+    });
+  }
+};
+
+export const listRecommendedProducts = () => async (dispatch, getState) => {
+  try {
+    dispatch({ type: PRODUCT_RECOMMENDATIONS_REQUEST });
+
+    const {
+      userLogin: { userInfo },
+    } = getState();
+
+    const config = {
+      headers: {
+        Authorization: `Bearer ${userInfo.token}`,
+      },
+    };
+
+    const { data } = await axios.get(`${URL}/api/products/recommendations`, config);
+
+    dispatch({ type: PRODUCT_RECOMMENDATIONS_SUCCESS, payload: data });
+  } catch (error) {
+    dispatch({
+      type: PRODUCT_RECOMMENDATIONS_FAIL,
+      payload:
+        error.response && error.response.data.message
+          ? error.response.data.message
+          : error.message,
     });
   }
 };

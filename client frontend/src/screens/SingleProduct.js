@@ -195,7 +195,16 @@ const SingleProduct = ({ history, match }) => {
                                                 {product?.color && (
                                                     <div className="flex-box d-flex justify-content-between align-items-center">
                                                         <h6>Color</h6>
-                                                        <span>{product?.color}</span>
+                                                        <span>
+                                                            <div
+                                                                style={{
+                                                                    width: '20px',
+                                                                    height: '20px',
+                                                                    borderRadius: '50%',
+                                                                    backgroundColor: product.color
+                                                                }}
+                                                            ></div>
+                                                        </span>
                                                     </div>
                                                 )}
                                             </>

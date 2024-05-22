@@ -272,3 +272,58 @@ button {
     gap: 10px;
   }
 }
+/* Responsive Design */
+@media (max-width: 768px) {
+  .filter-toggle {
+    position: fixed;
+    top: 50px;
+    right: 10px;
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+
+  .filter-badge {
+    padding: 8px 12px;
+    font-size: 16px;
+  }
+
+  .filters {
+    width: 250px;
+    right: -250px; /* Adjust for smaller screens */
+  }
+
+  .filter-section h5 {
+    font-size: 16px;
+  }
+
+  .filter-section label {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .filter-toggle {
+    top: 155px;
+    right: 15px;
+    padding: 6px 10px;
+    font-size: 14px;
+  }
+
+  .filter-badge {
+    padding: 5px 8px;
+    font-size: 14px;
+  }
+
+  .filters {
+    width: 200px;
+    right: -200px; /* Adjust for smaller screens */
+  }
+
+  .filter-section h5 {
+    font-size: 14px;
+  }
+
+  .filter-section label {
+    font-size: 12px;
+  }
+}

@@ -6,6 +6,7 @@ import CalltoActionSection from "./../components/homeComponents/CalltoActionSect
 import Footer from "./../components/Footer";
 import ChatComponent from "../components/homeComponents/ChatComponent";
 
+
 const HomeScreen = ({ match }) => {
     window.scrollTo(0, 0);
     const keyword = match.params.keyword;
@@ -14,6 +15,7 @@ const HomeScreen = ({ match }) => {
         <div>
             <Header />
             <ShopSection keyword={keyword} pagenumber={pagenumber} />
+
             <CalltoActionSection />
             <ContactInfo />
             <Footer />

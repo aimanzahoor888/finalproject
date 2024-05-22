@@ -14,7 +14,7 @@ import bodyParser from 'body-parser';
 dotenv.config();
 connectDatabase();
 const app = express();
-app.use(express.json());
+//app.use(express.json());
 
 const corsOptions = {
   origin: [
@@ -28,6 +28,9 @@ const corsOptions = {
 
 //app.use(bodyParser.json({ limit: '10000mb' }));
 app.use(cors(corsOptions));
+app.use(bodyParser.json({ limit: '50mb' }));
+app.use(bodyParser.urlencoded({ limit: '50mb', extended: true }));
+app.use(express.json());
 
 // API
 app.use('/api/import', ImportData);
@@ -39,6 +42,7 @@ app.use('/uploads', express.static('uploads'));
 app.get('/api/config/paypal', (req, res) => {
   res.send(process.env.PAYPAL_CLIENT_ID);
 });
+
 
 // Chatbot API endpoint
 app.post('/api/chat', async (req, res) => {

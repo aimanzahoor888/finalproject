@@ -4,6 +4,7 @@ import fs from 'fs';
 import express from 'express';
 import multer from 'multer';
 import Product from "../Models/ProductModel.js";
+import User from "../Models/UserModel.js";
 import { protect } from "../Middleware/AuthMiddleware.js";
 import asyncHandler from "express-async-handler";
 import Order from "./../Models/OrderModel.js";
@@ -26,9 +27,26 @@ const storage = multer.diskStorage({
 
 const upload = multer({ storage });
 
+
+productRoute.get(
+  '/recommendations',
+  protect,
+  asyncHandler(async (req, res) => {
+    try {
+      // Example recommendation logic: Get the last 10 products added to the collection
+      const recommendedProducts = await Product.find({}).limit(6); 
+
+      res.json(recommendedProducts);
+    } catch (error) {
+      console.error(error);
+      res.status(500).json({ message: 'Server error' });
+    }
+  })
+);
+
 // GET ALL PRODUCT
 productRoute.get(
-  "/",
+  '/',
   asyncHandler(async (req, res) => {
     const pageSize = 12;
     const page = Number(req.query.pageNumber) || 1;
@@ -36,20 +54,41 @@ productRoute.get(
       ? {
           name: {
             $regex: req.query.keyword,
-            $options: "i",
+            $options: 'i',
           },
         }
       : {};
-    const count = await Product.countDocuments({ ...keyword });
-    const products = await Product.find({ ...keyword })
+
+    // Extract filters from query parameters
+    const { category, priceRange, trustedSeller } = req.query;
+    const [minPrice, maxPrice] = priceRange ? priceRange.split('-').map(Number) : [null, null];
+
+    let filter = { ...keyword };
+
+    if (category) {
+      filter.category = category;
+    }
+    if (minPrice !== null && maxPrice !== null) {
+      filter.price = { $gte: minPrice, $lte: maxPrice };
+    }
+    if (trustedSeller === 'true') {
+      const trustedSellers = await User.find({ isTrustedSeller: true }).select('_id');
+  filter.user = { $in: trustedSellers };// Assuming you have a field `isTrustedSeller` in the user schema
+    }
+
+    const count = await Product.countDocuments({ ...filter });
+    const products = await Product.find({ ...filter })
+    .populate('user', 'name email isTrustedSeller') // Ensure population here
       .limit(pageSize)
       .skip(pageSize * (page - 1))
       .sort({ _id: -1 });
+
     res.json({ products, page, pages: Math.ceil(count / pageSize) });
   })
 );
 
-// ADMIN GET ALL PRODUCT WITHOUT SEARCH AND PEGINATION
+
+// ADMIN GET ALL PRODUCT WITHOUT SEARCH AND PAGINATION
 productRoute.get(
   "/all",
   protect,
@@ -73,7 +112,6 @@ productRoute.get(
     }
   })
 );
-
 
 // PRODUCT REVIEW
 productRoute.post(
@@ -140,7 +178,6 @@ productRoute.get(
   })
 );
 
-
 // DELETE PRODUCT
 productRoute.delete(
   "/:id",
@@ -193,24 +230,33 @@ productRoute.post('/', protect, asyncHandler(async (req, res) => {
   }
 }));
 
-
-
-
-
 // UPDATE PRODUCT
 productRoute.put(
   "/:id",
   protect,
- // admin,
   asyncHandler(async (req, res) => {
-    const { name, price, description, image, countInStock } = req.body;
+    const { 
+      name, price, description, image, countInStock, 
+      category, type, size, color, author, 
+      publicationYear, pageCount, quality 
+    } = req.body;
+    
     const product = await Product.findById(req.params.id);
+
     if (product) {
       product.name = name || product.name;
       product.price = price || product.price;
       product.description = description || product.description;
       product.image = image || product.image;
       product.countInStock = countInStock || product.countInStock;
+      product.category = category || product.category;
+      product.type = type || product.type;
+      product.size = size || product.size;
+      product.color = color || product.color;
+      product.author = author || product.author;
+      product.publicationYear = publicationYear || product.publicationYear;
+      product.pageCount = pageCount || product.pageCount;
+      product.quality = quality || product.quality;
 
       const updatedProduct = await product.save();
       res.json(updatedProduct);
@@ -220,4 +266,10 @@ productRoute.put(
     }
   })
 );
+
+
+
+
+
+
 export default productRoute;

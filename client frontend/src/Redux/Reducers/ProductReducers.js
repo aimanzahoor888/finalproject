@@ -16,6 +16,9 @@ import {
     SELLER_REVIEWS_REQUEST,
   SELLER_REVIEWS_SUCCESS,
   SELLER_REVIEWS_FAIL,
+  PRODUCT_RECOMMENDATIONS_REQUEST,
+  PRODUCT_RECOMMENDATIONS_SUCCESS,
+  PRODUCT_RECOMMENDATIONS_FAIL,
   
 } from "../Constants/ProductConstants";
 
@@ -94,6 +97,18 @@ export const sellerReviewsReducer = (state = { reviews: [] }, action) => {
     case SELLER_REVIEWS_SUCCESS:
       return { loading: false, reviews: action.payload };
     case SELLER_REVIEWS_FAIL:
+      return { loading: false, error: action.payload };
+    default:
+      return state;
+  }
+};
+export const recommendedProductsReducer = (state = { products: [] }, action) => {
+  switch (action.type) {
+    case PRODUCT_RECOMMENDATIONS_REQUEST:
+      return { loading: true, products: [] };
+    case PRODUCT_RECOMMENDATIONS_SUCCESS:
+      return { loading: false, products: action.payload };
+    case PRODUCT_RECOMMENDATIONS_FAIL:
       return { loading: false, error: action.payload };
     default:
       return state;
