@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import Rating from './Rating';
 import Pagination from './pagination'; // Check if the path is correct
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,8 +10,9 @@ import RecommendedProducts from './RecommendedProducts';
 
 const ShopSection = (props) => {
   const { keyword, pagenumber } = props;
+  const location = useLocation();
+  
   const dispatch = useDispatch();
-
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
   const userLogin = useSelector((state) => state.userLogin);
@@ -22,9 +23,14 @@ const ShopSection = (props) => {
   const [trustedSeller, setTrustedSeller] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
+  // Read and respond to the query parameters
   useEffect(() => {
+    const queryParams = new URLSearchParams(location.search);
+    const filtersOpen = queryParams.get('filters') === 'open';
+    setShowFilters(filtersOpen);
+
     dispatch(listProduct(keyword, pagenumber, { category, priceRange, trustedSeller }));
-  }, [dispatch, keyword, pagenumber, category, priceRange, trustedSeller]);
+  }, [dispatch, keyword, pagenumber, category, priceRange, trustedSeller, location.search]);
 
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handlePriceRangeChange = (e) => setPriceRange(e.target.value);
@@ -61,7 +67,7 @@ const ShopSection = (props) => {
                   <div className="filter-section">
                     <h5>By Category</h5>
                     <label><input type="radio" name="category" value="" onChange={handleCategoryChange} /> All Categories</label>
-                    <label><input type="radio" name="category" value="clothes" onChange={handleCategoryChange} /> Clothes</label>
+                    <label><input type = "radio" name="category" value="clothes" onChange={handleCategoryChange} /> Clothes</label>
                     <label><input type="radio" name="category" value="books" onChange={handleCategoryChange} /> Books</label>
                     <label><input type="radio" name="category" value="bags" onChange={handleCategoryChange} /> Bags</label>
                     <label><input type="radio" name="category" value="jewelry" onChange={handleCategoryChange} /> Jewelry</label>
@@ -117,7 +123,7 @@ const ShopSection = (props) => {
                 <Pagination pages={pages} page={page} keyword={keyword ? keyword : ''} />
               </div>
               {userInfo && (
-                <div className="shopcontainer row"> {/* Use the same class as the newly added items */}
+                <div className="shopcontainer row">
                   <h2 className="section-heading">{'Recommended for You'}</h2>
                   <RecommendedProducts />
                 </div>
