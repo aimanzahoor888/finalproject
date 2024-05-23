@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link,NavLink, useHistory } from "react-router-dom";
+import { Link, useHistory, useLocation } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { logout } from "../Redux/Actions/userActions";
 
@@ -7,6 +7,7 @@ const Header = () => {
   const [keyword, setKeyword] = useState();
   const dispatch = useDispatch();
   let history = useHistory();
+  let location = useLocation();
 
   const cart = useSelector((state) => state.cart);
   const { cartItems } = cart;
@@ -25,6 +26,9 @@ const Header = () => {
       history.push("/");
     }
   };
+
+  const showHeaderButtons = !["/login", "/register"].includes(location.pathname);
+
   return (
     <div>
       {/* Top Header */}
@@ -62,9 +66,9 @@ const Header = () => {
                   </Link>
                 </div>
                 <div className="col-6 d-flex align-items-center justify-content-end Login-Register">
-                <Link to="/addproduct">
-                <span className="text">Sell</span>
-                </Link>
+                  <Link to="/addproduct">
+                    <span className="text">Sell</span>
+                  </Link>
                   {userInfo ? (
                     <div className="btn-group">
                       <button
@@ -74,7 +78,7 @@ const Header = () => {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <i class="fas fa-user"></i>
+                        <i className="fas fa-user"></i>
                       </button>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/profile">
@@ -99,7 +103,7 @@ const Header = () => {
                         aria-haspopup="true"
                         aria-expanded="false"
                       >
-                        <i class="fas fa-user"></i>
+                        <i className="fas fa-user"></i>
                       </button>
                       <div className="dropdown-menu">
                         <Link className="dropdown-item" to="/login">
@@ -157,8 +161,8 @@ const Header = () => {
                 </form>
               </div>
               <div className="col-md-3 d-flex align-items-center justify-content-end Login-Register">
-              <Link to="/addproduct">
-              <span className="text">Sell</span>
+                <Link to="/addproduct">
+                  <span className="text">Sell</span>
                 </Link>
                 {userInfo ? (
                   <div className="btn-group">
@@ -201,16 +205,28 @@ const Header = () => {
           </div>
         </div>
       </div>
-      <div className="header-search-buttons">
-    <div className="header-group">
-        <button className="header-button" onClick={() => history.push('/')}>Home</button>
-        <button className="header-button" onClick={() => history.push('/about-us')}>About Us</button>
-        <button className="header-button" onClick={() => history.push('/donate')}>Donate</button>
+      {showHeaderButtons && (
+        <div className="header-search-buttons">
+          <button className="header-button" onClick={() => history.push("/")}>
+            Home
+          </button>
+          <div className="header-button">
+            Shop By
+            <div className="dropdown-content">
+              <a href="#">Trusted Sellers</a>
+              <a href="#">Price</a>
+              <a href="#">Categories</a>
+            </div>
+          </div>
+          <button className="header-button" onClick={() => history.push("/donate")}>
+            Donate
+          </button>
+          <button className="header-button" onClick={() => history.push("/about-us")}>
+            About Us
+          </button>
+        </div>
+      )}
     </div>
-</div>
-
-    </div>
-    
   );
 };
 

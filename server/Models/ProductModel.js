@@ -34,6 +34,7 @@ const productSchema = mongoose.Schema(
     price: { type: Number, required: true, default: 0 },
     countInStock: { type: Number, required: true, default: 0 },
     quality: { type: String },
+    status: { type: String, enum: ['active', 'inactive'], default: 'active' },
     user: { type: mongoose.Schema.Types.ObjectId, required: true, ref: "User" },
     
     negotiation: {

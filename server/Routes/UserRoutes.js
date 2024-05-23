@@ -3,6 +3,7 @@ import asyncHandler from "express-async-handler";
 import { protect, admin } from "../Middleware/AuthMiddleware.js";
 import generateToken from "../utils/generateToken.js";
 import User from "./../Models/UserModel.js";
+import Product from "./../Models/ProductModel.js";
 
 const userRouter = express.Router();
 
@@ -14,6 +15,10 @@ userRouter.post(
     const user = await User.findOne({ email });
 
     if (user && (await user.matchPassword(password))) {
+      if (user.banned) {
+        res.status(403);
+        throw new Error("Your account has been disabled. Contact: help@thriftn.com");
+      }
       res.json({
         _id: user._id,
         name: user.name,
@@ -122,6 +127,50 @@ userRouter.get(
   asyncHandler(async (req, res) => {
     const users = await User.find({});
     res.json(users);
+  })
+);
+
+// Ban user
+userRouter.put(
+  "/ban/:id",
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.banned = true;
+      await user.save();
+
+      // Disable user's products
+      await Product.updateMany({ user: user._id }, { status: 'inactive' });
+
+      res.json({ message: "User banned and products disabled" });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
+  })
+);
+
+// Unban user
+userRouter.put(
+  "/unban/:id",
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const user = await User.findById(req.params.id);
+    if (user) {
+      user.banned = false;
+      await user.save();
+
+      // Enable user's products
+      await Product.updateMany({ user: user._id }, { status: 'active' });
+
+      res.json({ message: "User unbanned and products enabled" });
+    } else {
+      res.status(404);
+      throw new Error("User not found");
+    }
   })
 );
 

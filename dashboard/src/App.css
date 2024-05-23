@@ -923,3 +923,49 @@ ul.row-sm {
 .button-spacing {
   margin-top: 10px; /* Adjust this value as needed */
 }
+
+.management-section {
+  margin: 20px;
+}
+
+.management-section ul {
+  list-style: none;
+  padding: 0;
+}
+
+.management-section li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  margin-bottom: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #f9f9f9;
+}
+
+.management-section li span {
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.management-section button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.management-section button:hover {
+  opacity: 0.8;
+}
+
+.management-section button.unban {
+  background-color: #4caf50;
+  color: white;
+}
+
+.management-section button.ban {
+  background-color: #f44336;
+  color: white;
+}

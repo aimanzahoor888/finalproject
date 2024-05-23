@@ -14,7 +14,14 @@ const protect = asyncHandler(async (req, res, next) => {
 
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
-      req.user = await User.findById(decoded.id).select("-password");
+      const user = await User.findById(decoded.id).select("-password");
+
+      if (user && user.banned) {
+        res.status(403);
+        throw new Error('User is banned');
+      }
+
+      req.user = user;
       next();
     } catch (error) {
       console.error(error);
@@ -36,4 +43,5 @@ const admin = (req, res, next) => {
     throw new Error("Not authorized as an Admin");
   }
 };
+
 export { protect, admin };

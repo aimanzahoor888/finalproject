@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import Rating from './Rating';
 import Pagination from './pagination'; // Check if the path is correct
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,9 +10,8 @@ import RecommendedProducts from './RecommendedProducts';
 
 const ShopSection = (props) => {
   const { keyword, pagenumber } = props;
-  const location = useLocation();
-  
   const dispatch = useDispatch();
+
   const productList = useSelector((state) => state.productList);
   const { loading, error, products, page, pages } = productList;
   const userLogin = useSelector((state) => state.userLogin);
@@ -23,14 +22,9 @@ const ShopSection = (props) => {
   const [trustedSeller, setTrustedSeller] = useState(false);
   const [showFilters, setShowFilters] = useState(false);
 
-  // Read and respond to the query parameters
   useEffect(() => {
-    const queryParams = new URLSearchParams(location.search);
-    const filtersOpen = queryParams.get('filters') === 'open';
-    setShowFilters(filtersOpen);
-
     dispatch(listProduct(keyword, pagenumber, { category, priceRange, trustedSeller }));
-  }, [dispatch, keyword, pagenumber, category, priceRange, trustedSeller, location.search]);
+  }, [dispatch, keyword, pagenumber, category, priceRange, trustedSeller]);
 
   const handleCategoryChange = (e) => setCategory(e.target.value);
   const handlePriceRangeChange = (e) => setPriceRange(e.target.value);
@@ -46,7 +40,7 @@ const ShopSection = (props) => {
               <div className="shopcontainer row">
                 <div className="filter-container">
                   <div className="filter-toggle" onClick={toggleFilters}>
-                    <span className="filter-badge">Filters</span>
+                    <span className="header-button">Filters</span>
                   </div>
                 </div>
                 <div className={`filters ${showFilters ? 'show' : ''}`}>
@@ -67,20 +61,19 @@ const ShopSection = (props) => {
                   <div className="filter-section">
                     <h5>By Category</h5>
                     <label><input type="radio" name="category" value="" onChange={handleCategoryChange} /> All Categories</label>
-                    <label><input type = "radio" name="category" value="clothes" onChange={handleCategoryChange} /> Clothes</label>
-                    <label><input type="radio" name="category" value="books" onChange={handleCategoryChange} /> Books</label>
+                    <label><input type="radio" name="category" value="clothes" onChange={handleCategoryChange} /> Clothes</label>
+                    <label><input type="radio" name="category" value="shoes" onChange={handleCategoryChange} /> Shoes</label>
+                    <label><input type="radio" name="category" value="accessories" onChange={handleCategoryChange} /> Accessories</label>
+                    <label><input type="radio" name="category" value="beauty" onChange={handleCategoryChange} /> Beauty</label>
                     <label><input type="radio" name="category" value="bags" onChange={handleCategoryChange} /> Bags</label>
-                    <label><input type="radio" name="category" value="jewelry" onChange={handleCategoryChange} /> Jewelry</label>
-                    <label><input type="radio" name="category" value="watches" onChange={handleCategoryChange} /> Watches</label>
-                    <label><input type="radio" name="category" value="belts" onChange={handleCategoryChange} /> Belts</label>
-                    <label><input type="radio" name="category" value="sunglasses" onChange={handleCategoryChange} /> Sunglasses</label>
-                    <label><input type="radio" name="category" value="wall-art" onChange={handleCategoryChange} /> Wall Art</label>
-                    <label><input type="radio" name="category" value="vases" onChange={handleCategoryChange} /> Vases</label>
+                    <label><input type="radio" name="category" value="books" onChange={handleCategoryChange} /> Books</label>
                     <label><input type="radio" name="category" value="stationary" onChange={handleCategoryChange} /> Stationary</label>
-                    <label><input type="radio" name="category" value="dolls" onChange={handleCategoryChange} /> Dolls</label>
-                    <label><input type="radio" name="category" value="educational-toys" onChange={handleCategoryChange} /> Educational Toys</label>
-                    <label><input type="radio" name="category" value="puzzles" onChange={handleCategoryChange} /> Puzzles</label>
-                    <label><input type="radio" name="category" value="board-games" onChange={handleCategoryChange} /> Board Games</label>
+                    <label><input type="radio" name="category" value="sunglasses" onChange={handleCategoryChange} /> Sunglasses</label>
+                    <label><input type="radio" name="category" value="art" onChange={handleCategoryChange} /> Art</label>
+                    <label><input type="radio" name="category" value="home-decor" onChange={handleCategoryChange} /> Home Decor</label>
+                    <label><input type="radio" name="category" value="kitchenware" onChange={handleCategoryChange} /> Kitchenware</label>
+                    <label><input type="radio" name="category" value="sports-outdoors" onChange={handleCategoryChange} /> Sports & Outdoors</label>
+                    
                     {/* Add more categories as needed */}
                   </div>
                   <div className="filter-section">
@@ -123,7 +116,7 @@ const ShopSection = (props) => {
                 <Pagination pages={pages} page={page} keyword={keyword ? keyword : ''} />
               </div>
               {userInfo && (
-                <div className="shopcontainer row">
+                <div className="shopcontainer row"> {/* Use the same class as the newly added items */}
                   <h2 className="section-heading">{'Recommended for You'}</h2>
                   <RecommendedProducts />
                 </div>

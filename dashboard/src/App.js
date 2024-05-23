@@ -12,6 +12,9 @@ import AddProduct from "./screens/AddProduct";
 import Login from "./screens/LoginScreen";
 import UsersScreen from "./screens/UsersScreen";
 import ProductEditScreen from "./screens/ProductEditScreen";
+import AdminDashboard from "./screens/AdminDashboard";  // Import AdminDashboard
+import UserManagement from "./components/users/UserManagement"; // Import UserManagement
+import ProductManagement from "./components/products/ProductManagement";
 import NotFound from "./screens/NotFound";
 import PrivateRouter from "./PrivateRouter";
 import { useDispatch, useSelector } from "react-redux";
@@ -42,6 +45,9 @@ function App() {
           <PrivateRouter path="/order/:id" component={OrderDetailScreen} />
           <PrivateRouter path="/addproduct" component={AddProduct} />
           <PrivateRouter path="/users" component={UsersScreen} />
+          <PrivateRouter path="/admin/dashboard" component={AdminDashboard} />
+          <PrivateRouter path="/admin/usermanagement" component={UserManagement} />
+          <PrivateRouter path="/admin/productmanagement" component={ProductManagement} />
           <PrivateRouter
             path="/product/:id/edit"
             component={ProductEditScreen}

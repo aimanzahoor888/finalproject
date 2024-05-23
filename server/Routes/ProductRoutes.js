@@ -5,7 +5,7 @@ import express from 'express';
 import multer from 'multer';
 import Product from "../Models/ProductModel.js";
 import User from "../Models/UserModel.js";
-import { protect } from "../Middleware/AuthMiddleware.js";
+import { protect, admin } from "../Middleware/AuthMiddleware.js";
 import asyncHandler from "express-async-handler";
 import Order from "./../Models/OrderModel.js";
 import { checkAndAssignTrustedBadge } from "../utils/Utils.js";
@@ -34,7 +34,7 @@ productRoute.get(
   asyncHandler(async (req, res) => {
     try {
       // Example recommendation logic: Get the last 10 products added to the collection
-      const recommendedProducts = await Product.find({}).limit(6); 
+      const recommendedProducts = await Product.find({ status: 'active' }).populate('user', 'banned').limit(6);
 
       res.json(recommendedProducts);
     } catch (error) {
@@ -63,7 +63,7 @@ productRoute.get(
     const { category, priceRange, trustedSeller } = req.query;
     const [minPrice, maxPrice] = priceRange ? priceRange.split('-').map(Number) : [null, null];
 
-    let filter = { ...keyword };
+    let filter = { ...keyword, status: 'active' };
 
     if (category) {
       filter.category = category;
@@ -73,12 +73,12 @@ productRoute.get(
     }
     if (trustedSeller === 'true') {
       const trustedSellers = await User.find({ isTrustedSeller: true }).select('_id');
-  filter.user = { $in: trustedSellers };// Assuming you have a field `isTrustedSeller` in the user schema
+      filter.user = { $in: trustedSellers };
     }
 
     const count = await Product.countDocuments({ ...filter });
     const products = await Product.find({ ...filter })
-    .populate('user', 'name email isTrustedSeller') // Ensure population here
+      .populate('user', 'name email isTrustedSeller')
       .limit(pageSize)
       .skip(pageSize * (page - 1))
       .sort({ _id: -1 });
@@ -268,8 +268,41 @@ productRoute.put(
 );
 
 
+// Disable product
+productRoute.put(
+  "/disable/:id",
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      product.status = 'inactive';
+      await product.save();
+      res.json({ message: "Product disabled" });
+    } else {
+      res.status(404);
+      throw new Error("Product not found");
+    }
+  })
+);
 
-
+// Enable product
+productRoute.put(
+  "/enable/:id",
+  protect,
+  admin,
+  asyncHandler(async (req, res) => {
+    const product = await Product.findById(req.params.id);
+    if (product) {
+      product.status = 'active';
+      await product.save();
+      res.json({ message: "Product enabled" });
+    } else {
+      res.status(404);
+      throw new Error("Product not found");
+    }
+  })
+);
 
 
 export default productRoute;

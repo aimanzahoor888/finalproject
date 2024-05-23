@@ -10,6 +10,7 @@ const Login = ({ location, history }) => {
   window.scrollTo(0, 0);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [message, setMessage] = useState(null);
 
   const dispatch = useDispatch();
   const redirect = location.search ? location.search.split("=")[1] : "/";
@@ -28,11 +29,17 @@ const Login = ({ location, history }) => {
     dispatch(login(email, password));
   };
 
+  useEffect(() => {
+    if (error) {
+      setMessage(error);
+    }
+  }, [error]);
+
   return (
     <>
       <Header />
       <div className="container d-flex flex-column justify-content-center align-items-center login-center">
-        {error && <Message variant="alert-danger">{error}</Message>}
+        {message && <Message variant="alert-danger">{message}</Message>}
         {loading && <Loading />}
         <form
           className="Login col-md-8 col-lg-4 col-11"

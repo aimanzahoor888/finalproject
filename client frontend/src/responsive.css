@@ -327,3 +327,29 @@ button {
     font-size: 12px;
   }
 }
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .header-button {
+    font-size: 14px; /* Adjust font size for smaller screens */
+    padding: 8px 16px; /* Adjust padding for smaller screens */
+  }
+  
+  .header-search-buttons {
+    flex-direction: column; /* Stack buttons vertically on smaller screens */
+    align-items: center; /* Center align buttons */
+    padding: 0 10%; /* Adjust padding */
+  }
+}
+
+@media (max-width: 480px) {
+  .header-button {
+    font-size: 12px; /* Further adjust font size for very small screens */
+    padding: 6px 12px; /* Further adjust padding for very small screens */
+  }
+
+  .header-search-buttons {
+    width: 100%; /* Full width for smaller screens */
+    padding: 0; /* Remove side padding */
+  }
+}

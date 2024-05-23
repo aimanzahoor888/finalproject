@@ -120,3 +120,34 @@
     min-width: 700px;
   }
 }
+
+/* Responsive Styles */
+@media (max-width: 768px) {
+  .management-section li {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .management-section li span {
+    margin-bottom: 10px;
+  }
+
+  .management-section button {
+    width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 480px) {
+  .management-section li {
+    padding: 10px;
+  }
+
+  .management-section li span {
+    font-size: 14px;
+  }
+
+  .management-section button {
+    padding: 8px 12px;
+  }
+}

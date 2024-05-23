@@ -203,20 +203,19 @@ const AddProductMain = () => {
                       onChange={(e) => setCategory(e.target.value)}
                     >
                       <option value="">Select...</option>
+                      <option value="">Select...</option>
                       <option value="clothes">Clothes</option>
-                      <option value="books">Books</option>
+                      <option value="shoes">Shoes</option>
+                      <option value="accessories">Accessories</option>
+                      <option value="beauty">Beauty</option>
                       <option value="bags">Bags</option>
-                      <option value="jewelry">Jewelry</option>
-                      <option value="watches">Watches</option>
-                      <option value="belts">Belts</option>
-                      <option value="sunglasses">Sunglasses</option>
-                      <option value="wall-art">Wall Art</option>
-                      <option value="vases">Vases</option>
+                      <option value="books">Books</option>
                       <option value="stationary">Stationary</option>
-                      <option value="dolls">Dolls</option>
-                      <option value="educational-toys">Educational Toys</option>
-                      <option value="puzzles">Puzzles</option>
-                      <option value="board-games">Board Games</option>
+                      <option value="art">Art</option>
+                      <option value="toys">Toys</option>
+                      <option value="home-decor">Home Decor</option>
+                      <option value="kitchenware">Kitchenware</option>
+                      <option value="sports-outdoors">Sports & Outdoors</option>
                     </select>
                   </div>
                   {category === 'clothes' && (

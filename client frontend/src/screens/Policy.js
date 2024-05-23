@@ -13,7 +13,8 @@ const Policy = () => {
                 <h1>Our Policies</h1>
                 </div>
                 <ul><li><h2>Return Policy</h2></li></ul>
-                <p>No returns are allowed, but if the seller sends the wrong item, you can write reviews and they'll be noticed or send an email with proof at <a href="mailto:help@thriftn.com">help@thriftn.com</a>. We'll consider it and ask the seller for a refund. If the seller is at fault and denies it, he/she will be blocked from posting further products on Thriftn'.</p>
+                <p>No returns are allowed, but if the seller sends the wrong item, you can write reviews and they'll be noticed or send an email with proof at <a href="mailto:help@thriftn.com">help@thriftn.com</a>. We'll consider it and ask the seller for a refund. If the seller is at fault and denies it, he/she will be blocked from posting further products on Thriftn'.Important
+                   You must return the item in the same condition in which you received it, i.e. you cannot wash or use it.</p>
 
                 <ul><li><h2>Exchange Policy</h2></li></ul>
                 <p>No exchange policy.</p>
@@ -34,8 +35,8 @@ const Policy = () => {
                     <li>Big items that require proper documentation like cars or houses cannot be listed.</li>
                 </ol>
 
-                <h2></h2>
-                <p></p>
+                <bold><h2>Important</h2></bold>
+                <p>If a seller posts a product that violates our policy (specifically, restricted items), their account will be banned after the first warning.</p>
             </div>
             <Footer />
         </>

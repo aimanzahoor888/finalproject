@@ -1113,29 +1113,23 @@ p {
   display: block; /* Show when search input is focused */
 }
 /* Filter button styles */
-
+/* Filter button styles */
 /* Filter Button */
 .filter-toggle {
   cursor: pointer;
-  z-index: 1000;
-  position: absolute;
-  top: 32.1%;
-  margin-right: 30%;
+  z-index: 100;
 }
+
 .filter-badge {
-  background-color: transparent; /* You can choose any color */
-  color: black;
+  background-color: #1cb803; /* You can choose any color */
+  color: white;
   padding: 10px 15px;
-  border-radius: 25px;
-  font-size: 17px;
+  border-radius: 0px;
+  font-size: 18px;
   font-weight: normal;
   display: flex;
   align-items: center;
   justify-content: center;
-}
-.filter-badge:hover {
-  background-color: #1cb803; /* Green background on hover */
-  color: white; 
 }
 
 /* Sidebar Filters */
@@ -1176,7 +1170,7 @@ p {
 .close-btn {
   background: none;
   border: none;
-  font-size: 30px;
+  font-size: 24px;
   cursor: pointer;
   color:black;
 }
@@ -1217,38 +1211,28 @@ p {
 }
 .header-search-buttons {
   display: flex;
-  justify-content: space-between; /* This will space out the main sections */
-  align-items: center; /* Ensures vertical centering */
-  margin-top: 9px;
-  padding: 0 5%;
-  width: 70%;
-  box-sizing: border-box;
-  margin-left: 20%;
-}
-
-.header-group {
-  display: flex; /* Ensures that items within the group are inline */
-  justify-content: space-between; /* Spaces items within the group */
-  margin-left: 9%;
-
-
+  justify-content: space-around; /* Evenly space items */
+  margin-top: 10px;
+  padding: 0 5%; /* Matching the search bar's outer spacing */
+  width: 90%; /* Same width as the search bar */
+  box-sizing: border-box; /* Includes padding in the width */
 }
 
 .header-button, .header-button div {
   background-color: transparent;
   color: black;
   padding: 10px 20px;
-  margin: 4px 5px; /* Small horizontal margin for spacing */
+  margin: 0; /* Remove margins to eliminate space between buttons */
   cursor: pointer;
-  font-size: 17px;
+  font-size: 16px;
   transition: all 0.3s;
-  border-radius: 25px;
-  /*flex-grow: 1; /* Allows each button to grow */
-  text-align: center;
+  border-radius: 25px; /* Ensures rounded corners */
+  flex-grow: 1; /* Ensures buttons expand to fill space */
+  text-align: center; /* Centers text within the button */
 }
 
 .header-button:hover {
-  background-color: #1cb803;
+  background-color: #1cb803; /* Your project's green color */
   color: white;
 }
 
